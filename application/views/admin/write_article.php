@@ -1,6 +1,5 @@
-<div class="col-md-9">
-	<?php echo form_open('admin/write_article'); ?>
-	<form method="post">
+<?php echo form_open('admin/write_article'); ?>
+	<div class="col-md-8">
 		<div class="form-group">
 			<label for="articleTitle">标题</label>
 			<input class="form-control" name="articleTitle">
@@ -9,6 +8,8 @@
 			<label for="article">正文</label>
 			<textarea class="form-control" rows=20 name="article"></textarea>
 		</div>
+	</div>
+	<div class="col-md-2">
 		<div class="form-group">
 			<label for="tags">标签</label>
 			<input class="form-control" name="tags" placeholder="多个标签请用英文逗号分隔">
@@ -25,11 +26,11 @@
 		<label class="radio-inline">
 			<input type="radio" name="status" value="draft"> 草稿 
 		</label>
-
+		<select class="form-control">
+			<option>1</option>
+			<option>2</option>
+		</select>
 		<br />
 		<button type="submit" class="btn btn-primary">提交</button> 
-	</form>
-</div>
-<div class="col-md-1">
-	<p>where</p> </div>
-</div>
+	</div>
+</form>
