@@ -13,7 +13,7 @@
 				<button type="submit" class="btn btn-primary">登录</button>
 				<br />
 				<br />
-				<p><a href="http://www.tifosili.top/Tifosi/index.php?/admin/signup">注册</a></p>
+				<?php echo anchor('admin/signup', '注册'); ?>
 			</form>
 		</div>
 	</div>
