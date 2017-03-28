@@ -24,11 +24,19 @@ class Tifosi_model extends CI_Model {
 		return $this->db->insert('users', $data);
 	}
 
-	public function get_user()
+	public function user_query()
 	{
-		$query = $this->db->get('user');
-
-		return $qurey->result();
+		$query = $this->db->get_where('users', array('username' => $this->input->post('username')));
+		$row = $query->row();
+		
+		if (isset($row))
+		{
+			return $row->password == md5($this->input->post('password'));
+		}
+		else
+		{
+			return FALSE;
+		}
 	}
 }
 ?>

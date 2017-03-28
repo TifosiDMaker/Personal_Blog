@@ -7,15 +7,41 @@ class Admin extends CI_Controller {
 		$this->load->model('tifosi_model');
 	}
 
-	public function index()
+	public function login()
 	{
 		$this->load->helper(array('form', 'url'));
+		$this->load->library('form_validation');
 
 		$data['title'] = 'Login';
 
-		$this->load->view('header', $data);
-		$this->load->view('admin/login');
-		$this->load->view('footer');
+		$this->form_validation->set_rules('username', '用户名', 'required',
+			array('required' => '%s为必填字段')
+			);
+		$this->form_validation->set_rules('password', '密码', 'required',
+			array('required' => '%s为必填字段')
+			);
+
+		if ($this->form_validation->run() == FALSE)
+		{
+			$this->load->view('header', $data);
+			$this->load->view('admin/login');
+			$this->load->view('footer');
+		}
+		else
+		{
+			if ($this->tifosi_model->user_query())
+			{
+				$this->load->view('header', $data);
+				$this->load->view('admin/signupsuccess');
+				$this->load->view('footer');
+			}
+			else
+			{
+				$this->load->view('header', $data);
+				$this->load->view('admin/loginfailed');
+				$this->load->view('footer');
+			}
+		}
 	}
 
 	public function signup()
@@ -24,7 +50,6 @@ class Admin extends CI_Controller {
 		$this->load->library('form_validation');
 
 		$data['title'] = 'Signup';
-		//$data['table'] = $this->tifosi_model->get_user();
 
 		$this->form_validation->set_rules('username', '用户名', 'required|min_length[3]|max_length[32]|is_unique[users.username]',
 			array(
@@ -84,5 +109,17 @@ class Admin extends CI_Controller {
 		$this->load->view('admin/signupsuccess');
 		$this->load->view('footer');
 	}
+
+	public function loginfailed()
+	{
+		$this->load->helper('url');
+
+		$data['title'] = 'Failed';
+
+		$this->load->view('header', $data);
+		$this->load->view('admin/loginfailed');
+		$this->load->view('footer');
+	}
+
 }
 ?>
