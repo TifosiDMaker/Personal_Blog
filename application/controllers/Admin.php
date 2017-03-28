@@ -5,6 +5,7 @@ class Admin extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('tifosi_model');
+		$this->load->library('session');
 	}
 
 	public function login()
@@ -31,12 +32,16 @@ class Admin extends CI_Controller {
 		{
 			if ($this->tifosi_model->user_query())
 			{
+				$this->session->set_userdata($this->tifosi_model->user_query());
+				
 				$this->load->view('header', $data);
 				$this->load->view('admin/signupsuccess');
 				$this->load->view('footer');
 			}
 			else
 			{
+				$data['title'] = 'Failed';
+				
 				$this->load->view('header', $data);
 				$this->load->view('admin/loginfailed');
 				$this->load->view('footer');
@@ -80,6 +85,8 @@ class Admin extends CI_Controller {
 		else
 		{
 			$this->tifosi_model->signup();
+
+			$data['title'] = 'Signup success';
 			
 			$this->load->view('header', $data);
 			$this->load->view('admin/signupsuccess');
@@ -89,14 +96,32 @@ class Admin extends CI_Controller {
 
 	public function write()
 	{
-		$this->load->helper('form');
+		$this->load->helper(array('form', 'url'));
 		
 		$data['title'] = 'Management';
 
-		$this->load->view('header', $data);
-		$this->load->view('admin/navigator');
-		$this->load->view('admin/write_article');
-		$this->load->view('footer');
+		if ($_SESSION['id'])
+		{
+			if ($_SESSION['id'] == 2)
+			{
+				$this->load->view('login_header', $data);
+				$this->load->view('admin/navigator');
+				$this->load->view('admin/write_article');
+				$this->load->view('footer');
+			}
+			else
+			{
+				$this->load->view('header', $data);
+				$this->load->view('admin/no_permission');
+				$this->load->view('footer');
+			}
+		}
+		else
+		{
+				$this->load->view('header', $data);
+				$this->load->view('admin/no_permission');
+				$this->load->view('footer');
+		}
 	}
 
 	public function signupsuccess()
@@ -110,16 +135,15 @@ class Admin extends CI_Controller {
 		$this->load->view('footer');
 	}
 
-	public function loginfailed()
+	public function logout()
 	{
-		$this->load->helper('url');
+		session_destroy();
 
-		$data['title'] = 'Failed';
+		$data['title'] = 'Logout';
 
 		$this->load->view('header', $data);
-		$this->load->view('admin/loginfailed');
+		$this->load->view('admin/logout');
 		$this->load->view('footer');
 	}
-
 }
 ?>

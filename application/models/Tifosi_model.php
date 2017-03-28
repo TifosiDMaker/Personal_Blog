@@ -31,7 +31,17 @@ class Tifosi_model extends CI_Model {
 		
 		if (isset($row))
 		{
-			return $row->password == md5($this->input->post('password'));
+			if ($row->password == md5($this->input->post('password')))
+			{
+				return array(
+					'username' => $this->input->post('username'),
+					'id' => $row->permission
+				);
+			}
+			else
+			{
+				return FALSE;
+			}
 		}
 		else
 		{
