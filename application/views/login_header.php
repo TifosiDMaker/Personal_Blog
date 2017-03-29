@@ -11,6 +11,6 @@
 		<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	</head>
 	<body>
-		<div class="text-right">
+		<div class="text-right" style="margin:3px 10px 0px 0px">
 			<?php echo anchor('admin/logout', '登出'); ?>
 		</div>

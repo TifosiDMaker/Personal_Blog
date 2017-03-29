@@ -48,5 +48,30 @@ class Tifosi_model extends CI_Model {
 			return FALSE;
 		}
 	}
+
+	public function write_article()
+	{
+		$process = $this->input->post('tags');
+		$process = explode(',', $process);
+		$tags = array();
+
+		$data = array(
+			'post_title' => $this->input->post('articleTitle'),
+			'post_content' => $this->input->post('article'),
+			'post_status' => $this->input->post('status')
+		);
+
+
+
+		foreach ($process as $tag) 
+		{
+			array_push($tags, ltrim($tag));
+		}
+
+		foreach ($tags as $tag)
+		{
+			$tag_qurey = $this->db->get_where('terms', array('name' => $tag));
+			$row = $tag_query->row();
+		}
 }
 ?>
