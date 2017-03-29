@@ -22,29 +22,38 @@ class Admin extends CI_Controller {
 			array('required' => '%s为必填字段')
 			);
 
-		if ($this->form_validation->run() == FALSE)
+		if (array_key_exists('id', $_SESSION))
 		{
-			$this->load->view('header', $data);
-			$this->load->view('admin/login');
-			$this->load->view('footer');
+			$this->load->view('login_header', $data);
+			$this->load->view('welcome.php');
+			$this->load->view('footer.php');
 		}
 		else
 		{
-			if ($this->tifosi_model->user_query())
+			if ($this->form_validation->run() == FALSE)
 			{
-				$this->session->set_userdata($this->tifosi_model->user_query());
-				
 				$this->load->view('header', $data);
-				$this->load->view('admin/signupsuccess');
+				$this->load->view('admin/login');
 				$this->load->view('footer');
 			}
 			else
 			{
-				$data['title'] = 'Failed';
+				if ($this->tifosi_model->user_query())
+				{
+					$this->session->set_userdata($this->tifosi_model->user_query());
+					
+					$this->load->view('header', $data);
+					$this->load->view('admin/signupsuccess');
+					$this->load->view('footer');
+				}
+				else
+				{
+					$data['title'] = 'Failed';
 				
-				$this->load->view('header', $data);
-				$this->load->view('admin/loginfailed');
-				$this->load->view('footer');
+					$this->load->view('header', $data);
+					$this->load->view('admin/loginfailed');
+					$this->load->view('footer');
+				}
 			}
 		}
 	}
@@ -100,7 +109,7 @@ class Admin extends CI_Controller {
 		
 		$data['title'] = 'Management';
 
-		if ($_SESSION['id'])
+		if (array_key_exists('id', $_SESSION))
 		{
 			if ($_SESSION['id'] == 2)
 			{
