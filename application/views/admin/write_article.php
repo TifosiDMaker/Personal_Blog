@@ -1,4 +1,5 @@
 <?php echo form_open('admin/write_article'); ?>
+<?php echo validation_errors(); ?>
 	<div class="col-md-8">
 		<div class="form-group">
 			<label for="articleTitle">标题</label>
@@ -26,7 +27,10 @@
 		<label class="radio-inline">
 			<input type="radio" name="status" value="draft"> 草稿 
 		</label>
-		<select class="form-control">
+		<br />
+		<br />
+		<label for="category">分类</label>
+		<select class="form-control" name="category">
 			<option>1</option>
 			<option>2</option>
 		</select>

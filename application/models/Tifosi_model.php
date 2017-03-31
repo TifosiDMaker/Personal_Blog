@@ -61,7 +61,7 @@ class Tifosi_model extends CI_Model {
 			'post_status' => $this->input->post('status')
 		);
 
-
+		return $this->db->insert('posts', $data);
 
 		foreach ($process as $tag) 
 		{
@@ -73,5 +73,6 @@ class Tifosi_model extends CI_Model {
 			$tag_qurey = $this->db->get_where('terms', array('name' => $tag));
 			$row = $tag_query->row();
 		}
+	}
 }
 ?>

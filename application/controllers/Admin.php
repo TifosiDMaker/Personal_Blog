@@ -103,20 +103,37 @@ class Admin extends CI_Controller {
 		}
 	}
 
-	public function write()
+	public function write_article()
 	{
 		$this->load->helper(array('form', 'url'));
+		$this->load->library('form_validation');
 		
 		$data['title'] = 'Management';
+
+		$this->form_validation->set_rules('articleTitle', '标题', 'required');
 
 		if (array_key_exists('id', $_SESSION))
 		{
 			if ($_SESSION['id'] == 2)
 			{
-				$this->load->view('login_header', $data);
-				$this->load->view('admin/navigator');
-				$this->load->view('admin/write_article');
-				$this->load->view('footer');
+				if ($this->form_validation->run() == FALSE)
+				{
+					$this->load->view('login_header', $data);
+					$this->load->view('admin/navigator');
+					$this->load->view('admin/write_article');
+					$this->load->view('footer');
+				}
+				else
+				{
+					$this->tifosi_model->write_article();
+
+					$data['title'] = 'Success';
+
+					$this->load->view('login_header', $data);
+					$this->load->view('success');
+					$this->load->view('footer');
+				}
+
 			}
 			else
 			{
