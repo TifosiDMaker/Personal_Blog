@@ -7,12 +7,6 @@ class Tifosi_model extends CI_Model {
 		$this->load->database();
 	}
 
-	public function set_post()
-	{
-		static $post_id = 0;
-		$post_id++;
-	}
-
 	public function signup()
 	{
 		$data = array(
@@ -51,10 +45,6 @@ class Tifosi_model extends CI_Model {
 
 	public function write_article()
 	{
-		$process = $this->input->post('tags');
-		$process = explode(',', $process);
-		$tags = array();
-
 		$data = array(
 			'post_title' => $this->input->post('articleTitle'),
 			'post_content' => $this->input->post('article'),
@@ -62,17 +52,61 @@ class Tifosi_model extends CI_Model {
 		);
 
 		return $this->db->insert('posts', $data);
+	}
 
-		foreach ($process as $tag) 
+	public function id_query($name, $column)
+	{
+		$this->db->where('name', $name);
+		$this->db->where('term_group', $column);
+
+		$query = $this->db->get('terms');
+		$row = $query->row();
+
+		if (isset($row))
 		{
-			array_push($tags, ltrim($tag));
+			return $row->term_id;
 		}
-
-		foreach ($tags as $tag)
+		else
 		{
-			$tag_qurey = $this->db->get_where('terms', array('name' => $tag));
-			$row = $tag_query->row();
+			return 0;
 		}
 	}
+
+	public function sqlit_tag()
+	{
+		return $tags = explode(',', $this->input->post('tags'));
+	}
+
+	public function relation($name)
+	{
+		$query = $this->db->get_where('posts', array('post_title' => $this->input->post('articleTitle')));
+		$row = $query->row();
+		
+		if (isset($row))
+		{
+			$id = $row->id;
+		}
+		else
+		{
+			$id = 1000;
+		}
+		
+		$data = array(
+			'article_id' => $id,
+			'term_id' => $name
+		);
+
+		return $this->db->insert('relationship', $data);
+	}
+
+	public function term($name, $group)
+	{
+		$data = array(
+			'name' => $name,
+			'term_group' => $group
+		);
+
+		return $this->db->insert('terms', $data);
+	}			
 }
 ?>

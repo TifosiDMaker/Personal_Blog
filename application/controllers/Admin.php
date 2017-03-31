@@ -127,6 +127,19 @@ class Admin extends CI_Controller {
 				{
 					$this->tifosi_model->write_article();
 
+					$tags = explode(',', $this->input->post('tags'));
+
+					foreach ($tags as $tag)
+					{
+						if (!$this->tifosi_model->id_query($tag, 1))
+						{
+							$this->tifosi_model->term($tag, 1);
+						}
+						$this->tifosi_model->relation($this->tifosi_model->id_query($tag, 1));
+					}
+
+					$this->tifosi_model->relation($this->tifosi_model->id_query($this->input->post('category'), 2));
+
 					$data['title'] = 'Success';
 
 					$this->load->view('login_header', $data);
