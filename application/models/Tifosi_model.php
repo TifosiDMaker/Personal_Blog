@@ -108,5 +108,13 @@ class Tifosi_model extends CI_Model {
 
 		return $this->db->insert('terms', $data);
 	}			
+
+	public function term_query($term)
+	{
+		$query = $this->db->get_where('terms', array('term_group' => $term));
+
+		return $query->result();
+	}
+
 }
 ?>
