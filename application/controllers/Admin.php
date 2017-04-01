@@ -107,59 +107,50 @@ class Admin extends CI_Controller {
 	{
 		$this->load->helper(array('form', 'url'));
 		$this->load->library('form_validation');
+		$this->load->driver('admin_driver');
 		
 		$data['title'] = 'Management';
 
 		$this->form_validation->set_rules('articleTitle', '标题', 'required');
 
-		if (array_key_exists('id', $_SESSION))
+		if ($this->admin_driver->session_vali())
 		{
-			if ($_SESSION['id'] == 2)
+			if ($this->form_validation->run() == FALSE)
 			{
-				if ($this->form_validation->run() == FALSE)
-				{
-					$this->load->view('login_header', $data);
-					$this->load->view('admin/navigator');
-					$this->load->view('admin/write_article');
-					$this->load->view('footer');
-				}
-				else
-				{
-					$this->tifosi_model->write_article();
-
-					$tags = explode(',', $this->input->post('tags'));
-
-					foreach ($tags as $tag)
-					{
-						if (!$this->tifosi_model->id_query($tag, 1))
-						{
-							$this->tifosi_model->term($tag, 1);
-						}
-						$this->tifosi_model->relation($this->tifosi_model->id_query($tag, 1));
-					}
-
-					$this->tifosi_model->relation($this->tifosi_model->id_query($this->input->post('category'), 2));
-
-					$data['title'] = 'Success';
-
-					$this->load->view('login_header', $data);
-					$this->load->view('success');
-					$this->load->view('footer');
-				}
-
+				$this->load->view('admin/admin_header');
+				$this->load->view('admin/write_article');
+				$this->load->view('footer');
 			}
 			else
 			{
-				$this->load->view('header', $data);
-				$this->load->view('admin/no_permission');
+				$this->tifosi_model->write_article();
+
+				$tags = explode(',', $this->input->post('tags'));
+
+				foreach ($tags as $tag)
+				{
+					if (!$this->tifosi_model->id_query($tag, 1))
+					{
+						$this->tifosi_model->term($tag, 1);
+					}
+					$this->tifosi_model->relation($this->tifosi_model->id_query($tag, 1));
+				}
+
+				$this->tifosi_model->relation($this->tifosi_model->id_query($this->input->post('category'), 2));
+
+				$data['title'] = 'Success';
+
+				$this->load->view('login_header', $data);
+				$this->load->view('success');
 				$this->load->view('footer');
-			}
+				}
+
 		}
 		else
 		{
-				$this->load->view('header', $data);
-				$this->load->view('admin/no_permission');
-				$this->load->view('footer');
+			$this->load->view('header', $data);
+			$this->load->view('admin/no_permission');
+			$this->load->view('footer');
 		}
 	}
 
@@ -183,6 +174,22 @@ class Admin extends CI_Controller {
 		$this->load->view('header', $data);
 		$this->load->view('admin/logout');
 		$this->load->view('footer');
+	}
+
+	public function terms($term)
+	{
+		$this->load->helper(array('form', 'url'));
+		$this->load->library('form_validation');
+		$this->load->driver('admin_driver');
+
+		$this->form_validation->set_rules('name', '名称', 'required');
+
+		if ($this->admin_driver->session_vali())
+		{
+			if ($this->form_validation->run() == FALSE)
+			{
+			}
+		}
 	}
 }
 ?>
