@@ -1,15 +1,15 @@
-<div class="col-md-4">
-	<?php echo '<h4>'.$header.'</h4>'; ?>
+<div class="col-md-3">
+	<?php echo '<h3>'.$header.'</h4>'; ?>
 	<?php echo form_open('admin/term.php'); ?>
 	<?php echo validation_errors(); ?>
 		<div class="form-group">
-			<label for="name">名称</label>
+			<?php echo '<label for="name">添加新'.$header.'</label>'; ?>
 			<input class="form-control" name="name">
 		</div>
 		<button type="submit" class="btn btn-primary">提交</button>
 	</form>
 </div>
-<div class="col-md-6">
+<div class="col-md-5" style="margin-top:50px">
 	<table class="table table-stroped">
 		<thead>
 			<tr>
@@ -18,10 +18,10 @@
 			</tr>
 		</thead>
 		<tbody>
-		<?php foreach (term_query($term) as $row): ?>
+		<?php foreach ($terms as $row): ?>
 			<tr>
 				<?php echo '<td>'.$row->name.'</td>'; ?>
-				<td>编辑<span style="color:grey">|</span><span style="color:red">删除</span></td>
+				<td>编辑<span style="color:grey"> | </span><span style="color:red">删除</span></td>
 			</tr>
 		<?php endforeach; ?>
 		</tbody>

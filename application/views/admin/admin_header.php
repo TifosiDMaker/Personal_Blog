@@ -23,9 +23,9 @@
 							<li class="sidebar-menu-item open">
 								<ul class="sidebar-submenu">
 									<li class="sidebar-menu-item"><a href="#">所有文章</a></li>
-									<li class="sidebar-menu-item active"><a href="#">写文章</a></li>
-									<li class="sidebar-menu-item"><a href="#">分类</a></li>
-									<li class="sidebar-menu-item active"><a href="#">标签</a></li>
+									<?php echo '<li class="sidebar-menu-item">'.anchor('admin/write_article', '写文章').'</li>'; ?>
+									<?php echo '<li class="sidebar-menu-item">'.anchor('admin/terms/category', '分类').'</li>'; ?>
+									<?php echo '<li class="sidebar-menu-item">'.anchor('admin/terms/tag', '标签').'</li>'; ?>
 								</ul>
 							<li><a href="#">评论</a></li>
 						</ul>

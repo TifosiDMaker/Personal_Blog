@@ -184,12 +184,23 @@ class Admin extends CI_Controller {
 
 		$this->form_validation->set_rules('name', '名称', 'required');
 
+		$data['terms'] = $this->tifosi_model->term_query($term);
+
+		if ($term == 2)
+		{
+			$data['header'] = '分类';
+		}
+		elseif ($term == 1)
+		{
+			$data['header'] = '标签';
+		}
+
 		if ($this->admin_driver->session_vali())
 		{
 			if ($this->form_validation->run() == FALSE)
 			{
 				$this->load->view('admin/admin_header');
-				$this->load->view('admin/terms', $term);
+				$this->load->view('admin/terms', $data);
 				$this->load->view('footer');
 			}
 		}
