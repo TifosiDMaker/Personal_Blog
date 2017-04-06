@@ -11,7 +11,9 @@ class Index extends CI_Controller {
 	{
 		$this->load->helper('url');
 
-		$this->load->view('header');
+		$data['title'] = 'Tifosi\'s Blog';
+
+		$this->load->view('header', $data);
 		$this->load->view('index');
 		$this->load->view('footer');
 	}
