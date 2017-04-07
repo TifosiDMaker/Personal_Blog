@@ -116,5 +116,16 @@ class Tifosi_model extends CI_Model {
 		return $query->result();
 	}
 
+	public function article_query($id = FALSE)
+	{
+		if ($id === FALSE)
+		{
+			$query = $this->db->get('posts');
+			return $query->result();
+		}
+
+		$query = $this->db->get_where('news', array('id' => $id));
+		return $query->row();
+	}
 }
 ?>

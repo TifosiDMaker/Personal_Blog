@@ -12,6 +12,9 @@ class Index extends CI_Controller {
 		$this->load->helper('url');
 
 		$data['title'] = 'Tifosi\'s Blog';
+		$data['article'] = $this->tifosi_model->article_query();
+		$data['category'] = $this->tifosi_model->term_query(2);
+		$data['tag'] = $this->tifosi_model->term_query(1);
 
 		$this->load->view('header', $data);
 		$this->load->view('index');
