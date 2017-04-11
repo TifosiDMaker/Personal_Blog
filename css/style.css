@@ -14,3 +14,11 @@
 .post-meta {
 	color: grey;
 }
+.article-content {
+	display: block;
+	width: 700px;
+	height: 40px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}

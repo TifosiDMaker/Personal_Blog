@@ -56,7 +56,7 @@ class Tifosi_model extends CI_Model {
 
 	public function id_query($name, $column)
 	{
-		$this->db->where('name', $name);
+		$this->db->where('term_name', $name);
 		$this->db->where('term_group', $column);
 
 		$query = $this->db->get('terms');
@@ -102,7 +102,7 @@ class Tifosi_model extends CI_Model {
 	public function term($name, $group)
 	{
 		$data = array(
-			'name' => $name,
+			'term_name' => $name,
 			'term_group' => $group
 		);
 
@@ -121,12 +121,32 @@ class Tifosi_model extends CI_Model {
 		if ($id === FALSE)
 		{
 			$this->db->order_by('id', 'DESC');
-			$query = $this->db->get('posts');
+			$query = $this->db->get_where('posts', array('post_status' => 'public'));
 			return $query->result();
 		}
 
-		$query = $this->db->get_where('news', array('id' => $id));
+		$query = $this->db->get_where('posts', array('id' => $id));
 		return $query->row();
+	}
+
+	public function get_term($aid, $tid)
+	{
+		$this->db->select('*');
+		$this->db->from('relationship');
+		$this->db->join('terms', 'terms.term_id = relationship.term_id');
+		$this->db->where('article_id', $aid);
+		if ($tid == 1)
+		{
+			$this->db->where('term_group', $tid);
+			$query = $this->db->get();
+			return $query->result();
+		}
+		elseif ($tid == 2)
+		{
+			$this->db->where('term_group', $tid);
+			$query = $this->db->get();
+			return $query->row();
+		}
 	}
 }
 ?>

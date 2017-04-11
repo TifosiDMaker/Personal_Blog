@@ -18,11 +18,22 @@
 				<h3><?php echo anchor('#', $row->post_title); ?></h3>
 				<p class="post-meta">
 					<span class="glyphicon glyphicon-time" aria-hidden="true"></span> <?php echo $row->post_date; ?>
-					<span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>  分类
-					<span class="glyphicon glyphicon-tags" aria-hidden="true"></span>  标签
+					<span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>  <?php echo anchor('#', $this->tifosi_model->get_term($row->id, 2)->term_name); ?>
+					<span class="glyphicon glyphicon-tags" aria-hidden="true"></span>
+					<?php foreach ($this->tifosi_model->get_term($row->id, 1) as $row_2)
+					{
+						if (!$row_2->term_name)
+						{
+							echo '';
+						}
+						else
+						{
+							echo anchor('#', $row_2->term_name).' | ';
+						}
+					} ?>
 				</p>
 				<p class="article-content">
-					<?php echo $row->post_content; ?>
+					<?php echo nl2br(html_escape(html_entity_decode($row->post_content))); ?>
 				</p>
 				</div>
 			<?php endforeach; ?>
@@ -32,7 +43,7 @@
 			<ul style="margin:0px; padding:0px 0px 0px 20px">
 				<?php foreach ($category as $row): ?>
 					<li>
-					<?php echo anchor('#', $row->name); ?>
+					<?php echo anchor('#', $row->term_name); ?>
 					</li>
 				<?php endforeach; ?>
 			</ul>
@@ -40,7 +51,14 @@
 				<p>
 					<?php foreach ($tag as $row): ?>
 						<span class="tags">
-						<?php echo anchor('#', $row->name); ?>
+						<?php if(!$row->term_name)
+						{
+							echo '';
+						}
+						else
+						{
+							echo anchor('#', $row->term_name);
+						} ?>
 						</span>
 					<?php endforeach; ?>
 				</p>

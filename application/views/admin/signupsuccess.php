@@ -1,8 +1,8 @@
-<h3 class="text-center" style="margin-top:200px">注册成功！</h3>
+<h3 class="text-center" style="margin-top:200px">成功！</h3>
 <br />
 <br />
 <br />
 <br />
 <div class="text-center">
-	<?php echo anchor('', '返回首页'); ?>
+	<?php echo anchor('', '返回首页').'   |   '. anchor('admin/write_article', '管理页面'); ?>
 </div>

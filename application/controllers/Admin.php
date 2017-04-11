@@ -154,7 +154,7 @@ class Admin extends CI_Controller {
 		}
 	}
 
-	public function signupsuccess()
+	public function loginsuccess()
 	{
 		$this->load->helper('url');
 

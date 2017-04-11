@@ -5,6 +5,7 @@ class Index extends CI_Controller {
 		parent::__construct();
 		$this->load->model('tifosi_model');
 		$this->load->library('session');
+		$this->load->helper('form');
 	}
 
 	public function index()

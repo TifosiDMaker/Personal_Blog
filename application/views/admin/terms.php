@@ -20,7 +20,7 @@
 		<tbody>
 		<?php foreach ($terms as $row): ?>
 			<tr>
-				<?php echo '<td>'.$row->name.'</td>'; ?>
+				<?php echo '<td>'.$row->term_name.'</td>'; ?>
 				<td>编辑<span style="color:grey"> | </span><span style="color:red">删除</span></td>
 			</tr>
 		<?php endforeach; ?>
