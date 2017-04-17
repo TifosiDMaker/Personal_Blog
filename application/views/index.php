@@ -3,7 +3,9 @@
 		<?php echo anchor('admin/login', '登录'); ?> | <?php echo anchor('admin/signup', '注册'); ?>
 	</p>
 </div>
-<h1 class="text-center">Tifosi's Blog</h2>
+<div id="bolg" class="container-fluid">
+	<h1 class="text-center">Tifosi's Blog</h2>
+</div>
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-10">

@@ -22,3 +22,16 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
+.fixed {
+	position: fixed;
+}
+
+
+#bolg {
+	position: fixed;
+	left: 10%;
+	right: 10%;
+	margin-bottom: 70px;
+	height: 200px;
+	background-color: white;
+}
