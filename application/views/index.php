@@ -12,7 +12,7 @@
 		<div class="col-md-6 col-md-offset-2">
 			<?php foreach ($article as $row): ?>
 				<div class="single-article">
-				<h3><?php echo anchor('#', $row->post_title); ?></h3>
+				<h3><?php echo anchor('article/'.$row->id, $row->post_title); ?></h3>
 				<p class="post-meta">
 					<span class="glyphicon glyphicon-time" aria-hidden="true"></span> <?php echo $row->post_date; ?>
 					<span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>  <?php echo anchor('#', $this->tifosi_model->get_term($row->id, 2)->term_name); ?>
