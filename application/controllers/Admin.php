@@ -167,6 +167,8 @@ class Admin extends CI_Controller {
 
 	public function logout()
 	{
+		$this->load->helper('url');
+
 		session_destroy();
 
 		$data['title'] = 'Logout';

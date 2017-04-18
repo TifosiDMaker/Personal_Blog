@@ -19,6 +19,18 @@
 				return 0;
 			}
 		}
+
+		public function session_exist ()
+		{
+			if (array_key_exists('id', $_SESSION))
+			{
+				return 1;
+			}
+			else
+			{
+				return 0;
+			}
+		}
 	}
 ?>
 

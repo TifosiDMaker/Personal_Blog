@@ -10,7 +10,7 @@
 		<link rel="stylesheet" href="<?php echo base_url(); ?>css/style.css">
 	</head>
 	<body>
-		<div class="text-right top-row" style="margin:3px 10px 0px 0px">
+		<div class="text-right top-row">
 			<?php echo anchor('admin/logout', '登出'); ?>
 		</div>
 		<div class="container-fluid">

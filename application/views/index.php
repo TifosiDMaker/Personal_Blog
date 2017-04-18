@@ -1,8 +1,3 @@
-<div class="text-right top-row">
-	<p>
-		<?php echo anchor('admin/login', '登录'); ?> | <?php echo anchor('admin/signup', '注册'); ?>
-	</p>
-</div>
 <div id="bolg" class="container-fluid">
 	<h1 class="text-center">Tifosi's Blog</h2>
 </div>
@@ -39,31 +34,37 @@
 				</p>
 				</div>
 			<?php endforeach; ?>
-		</div>
-		<div class="col-md-2">
-			<h5 class="sub-title-right">分类</h5>
-			<ul style="margin:0px; padding:0px 0px 0px 20px">
-				<?php foreach ($category as $row): ?>
-					<li>
-					<?php echo anchor('#', $row->term_name); ?>
-					</li>
-				<?php endforeach; ?>
-			</ul>
-			<h5 class="sub-title-right">标签</h5>
-				<p>
-					<?php foreach ($tag as $row): ?>
-						<span class="tags">
-						<?php if(!$row->term_name)
+			<nav aria-label="Page navigation">
+				<ul class="pagination">
+					<?php if ($page == 1): ?>
+						<li class="disabled">
+							<span>
+								<span aria-hidden="true">&laquo;</span>
+							</span>
+						</li>
+					<?php else: ?>
+						<li>
+							<a href="index.php?/<?php echo $page - 1; ?>" aria-label="Previous">
+								<span aria-hidden="true">&laquo;</span>
+							</a>
+						</li>
+					<?php endif ?>
+					<?php for ($i = 1; $i <= ceil($this->db->count_all('posts')/10); $i++)
+					{
+						if ($i == $page)
 						{
-							echo '';
+							echo '<li class="active"><a href="index.php?/'.$i.'">'.$i.'<span class="sr-only">(current)</span></a></li>';
 						}
 						else
 						{
-							echo anchor('#', $row->term_name);
-						} ?>
-						</span>
-					<?php endforeach; ?>
-				</p>
-			<h5 class="sub-title-right">About me</h5>
-	</div>
-</div>
+							echo '<li>'.anchor($i, $i).'</li>';
+						}
+					} ?>
+					<li>
+						<a href='#' aria-label="Next">
+							<span aria-hidden="true">&raquo;</span>
+						</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
