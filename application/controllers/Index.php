@@ -43,6 +43,7 @@ class Index extends CI_Controller {
 		$data['id'] = $row->id;
 		$data['category'] = $this->tifosi_model->term_query(2);
 		$data['tag'] = $this->tifosi_model->term_query(1);
+		$data['comments'] = $this->tifosi_model->comment_query($id);
 
 		$this->load->view('header', $data);
 
@@ -50,17 +51,28 @@ class Index extends CI_Controller {
 		{
 			$this->load->view('user_header');
 			$this->load->view('article');
+			$this->load->view('view_comments');
 			$this->load->view('comment');
 		}
 		else
 		{
 			$this->load->view('visitor_header');
 			$this->load->view('article');
+			$this->load->view('view_comments');
 			$this->load->view('comment_decline');
 		}
 
 		$this->load->view('index_sidebar');
 		$this->load->view('footer');
+	}
+
+	public function comment()
+	{
+		$this->load->library('user_agent');
+
+		$this->tifosi_model->comment();
+
+		redirect($this->agent->referrer());
 	}
 }
 ?>

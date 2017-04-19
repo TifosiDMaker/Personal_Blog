@@ -149,5 +149,26 @@ class Tifosi_model extends CI_Model {
 			return $query->row();
 		}
 	}
+
+	public function comment()
+	{
+		$data = array(
+			'comment' => $this->input->post('comment'),
+			'post_id' => $this->input->post('id'),
+			'user' => $_SESSION['username']
+			);
+
+		return $this->db->insert('comments', $data);
+	}
+
+	public function comment_query($id)
+	{
+		$this->db->where('post_id', $id);
+		$this->db->order_by('id', 'DESC');
+
+		$query = $this->db->get('comments');
+
+		return $query->result();
+	}
 }
 ?>
