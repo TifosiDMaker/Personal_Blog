@@ -22,10 +22,33 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
+
+.article-main {
+	margin: 20px 0px 100px 0px;
+}
+
+.single-comment {
+	border-style: none none solid none;
+	border-width: 2px;
+	border-color: rgb(230,230,230);
+	margin: 20px 0px 20px 0px;
+}
+
+.comment-content {
+	margin-bottom: 30px;
+}
+
 .fixed {
 	position: fixed;
 }
 
+.comment-meta {
+	color: grey;
+}
+
+#comment_decline {
+	margin-top: 100px;
+}
 
 #bolg {
 	position: fixed;

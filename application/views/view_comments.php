@@ -4,13 +4,8 @@
 		<p class="comment-content">
 			<?php echo nl2br(html_escape(html_entity_decode($row->comment))); ?>
 		</p>
-		<p>
-			<span class="comment-author">
-				<?php echo $row->user; ?>
-			</span>
-			<span class="comment-time">
-				<?php echo $row->time; ?>
-			</span>
+		<p class="comment-meta text-right">
+			<?php echo $row->user; ?> 于 <?php echo $row->time; ?>
 		</p>
 	</div>
 <?php endforeach; ?>
