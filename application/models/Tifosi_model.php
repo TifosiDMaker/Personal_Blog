@@ -170,5 +170,13 @@ class Tifosi_model extends CI_Model {
 
 		return $query->result();
 	}
+
+	public function entry_count($table, $where)
+	{
+		$this->db->from($table);
+		$this->db->where($where);
+
+		return $this->db->count_all_results;
+	}
 }
 ?>

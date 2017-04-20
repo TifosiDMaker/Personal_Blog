@@ -11,6 +11,13 @@ class Index extends CI_Controller {
 
 	public function index($page = 1)
 	{
+		$page = ($this->uri->segment(1)) ? $this->uri->segment(1) : 1;
+
+		$config['base_url'] = base_url();
+		$config['total_rows'] = $this->tifosi_model->entry_count('posts', array('post_status' => 'public'));
+
+		$this->pagination->initializa($config);
+
 		$data['title'] = 'Tifosi\'s Blog';
 		$data['article'] = $this->tifosi_model->article_query(FALSE, $page);
 		$data['category'] = $this->tifosi_model->term_query(2);
