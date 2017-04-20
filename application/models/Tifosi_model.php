@@ -121,7 +121,7 @@ class Tifosi_model extends CI_Model {
 		if ($id === FALSE)
 		{
 			$this->db->order_by('id', 'DESC');
-			$this->db->limit(10, ($page - 1) * 10);
+			$this->db->limit(3, ($page - 1) * 3);
 			$query = $this->db->get_where('posts', array('post_status' => 'public'));
 			return $query->result();
 		}
