@@ -4,25 +4,26 @@ class Index extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('tifosi_model');
-		$this->load->library('session');
+		$this->load->library(array('session', 'pagination'));
 		$this->load->helper(array('form', 'url'));
 		$this->load->driver('admin_driver');
 	}
 
 	public function index($page = 1)
 	{
-		$page = ($this->uri->segment(1)) ? $this->uri->segment(1) : 1;
+		$page = ($this->uri->segment(1)) ? $this->uri->segment(1) : 0;
 
-		$config['base_url'] = base_url();
+		$config['base_url'] = base_url().'index.php?/';
 		$config['total_rows'] = $this->tifosi_model->entry_count('posts', array('post_status' => 'public'));
 
-		$this->pagination->initializa($config);
+		$this->pagination->initialize($config);
 
 		$data['title'] = 'Tifosi\'s Blog';
 		$data['article'] = $this->tifosi_model->article_query(FALSE, $page);
 		$data['category'] = $this->tifosi_model->term_query(2);
 		$data['tag'] = $this->tifosi_model->term_query(1);
 		$data['page'] = $page;
+		$data['links'] = $this->pagination->create_links();
 
 		$this->load->view('header', $data);
 

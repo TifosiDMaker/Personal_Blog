@@ -34,6 +34,9 @@
 				</p>
 				</div>
 			<?php endforeach; ?>
+
+			<?php echo $links; ?>
+			<?php /*
 			<nav aria-label="Page navigation">
 				<ul class="pagination">
 					<?php if ($page == 1): ?>
@@ -67,4 +70,5 @@
 					</li>
 				</ul>
 			</nav>
+			*/ ?>
 		</div>
