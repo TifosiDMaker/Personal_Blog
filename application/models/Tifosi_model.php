@@ -122,21 +122,23 @@ class Tifosi_model extends CI_Model {
 		{
 			$this->db->select('*');
 			$this->db->from('posts');
-			$this->db->order_by('id', 'DESC');
-			$this->db->limit(10, $page);
-			$this->db->where('post_status', 'public');
-
+			
 			if ($term)
 			{
-				$this->db->join('relationshop', 'relationship.article_id = posts.id');
+				$this->db->join('relationship', 'relationship.article_id = posts.id');
 				$this->db->where('term_id', $term);
 			}
+
+			$this->db->order_by('post_date', 'DESC');
+			$this->db->limit(10, $page);
+			$this->db->where('post_status', 'public');
 			
 			$query = $this->db->get();
 			return $query->result();
 		}
 
 		$query = $this->db->get_where('posts', array('id' => $id));
+
 		return $query->row();
 	}
 
@@ -150,12 +152,14 @@ class Tifosi_model extends CI_Model {
 		{
 			$this->db->where('term_group', $tid);
 			$query = $this->db->get();
+
 			return $query->result();
 		}
 		elseif ($tid == 2)
 		{
 			$this->db->where('term_group', $tid);
 			$query = $this->db->get();
+
 			return $query->row();
 		}
 	}

@@ -9,17 +9,26 @@ class Index extends CI_Controller {
 		$this->load->driver('admin_driver');
 	}
 
-	public function index($page = 1)
+	public function index($page = 1, $term = 0)
 	{
-		$page = ($this->uri->segment(1)) ? $this->uri->segment(1) : 0;
 
-		$config['base_url'] = base_url().'index.php?/';
-		$config['total_rows'] = $this->tifosi_model->entry_count('posts', array('post_status' => 'public'));
+		if ($term)
+		{
+			$config['base_url'] = base_url().'index.php?/'."/$term/";
+			$config['total_rows'] = $this->tifosi_model->entry_count('relationship', array('term_id' => $term));
+			$page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 0;
+		}
+		else
+		{
+			$config['base_url'] = base_url().'index.php?/';
+			$config['total_rows'] = $this->tifosi_model->entry_count('posts', array('post_status' => 'public'));
+			$page = ($this->uri->segment(1)) ? $this->uri->segment(1) : 0;
+		}
 
 		$this->pagination->initialize($config);
 
 		$data['title'] = 'Tifosi\'s Blog';
-		$data['article'] = $this->tifosi_model->article_query(FALSE, $page);
+		$data['article'] = $this->tifosi_model->article_query(FALSE, $page, $term);
 		$data['category'] = $this->tifosi_model->term_query(2);
 		$data['tag'] = $this->tifosi_model->term_query(1);
 		$data['page'] = $page;
