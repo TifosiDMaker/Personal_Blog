@@ -3,6 +3,8 @@
 
 	$config['num_links'] = 10;
 
+	$config['use_page_numbers'] = TRUE;
+
 	$config['full_tag_open'] = '<nav aria-label="Page navigation"><ul class="pagination">';
 	$config['full_tag_close'] = '</ul></nav>';
 

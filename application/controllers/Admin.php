@@ -6,6 +6,7 @@ class Admin extends CI_Controller {
 		parent::__construct();
 		$this->load->model('tifosi_model');
 		$this->load->library('session');
+		$this->load->helper('url');
 	}
 
 	public function login()
@@ -110,6 +111,7 @@ class Admin extends CI_Controller {
 		$this->load->driver('admin_driver');
 		
 		$data['title'] = 'Management';
+		$data['term'] = $this->tifosi_model->term_query(2);
 
 		$this->form_validation->set_rules('articleTitle', '标题', 'required');
 
@@ -117,7 +119,9 @@ class Admin extends CI_Controller {
 		{
 			if ($this->form_validation->run() == FALSE)
 			{
-				$this->load->view('admin/admin_header');
+				$this->load->view('header', $data);
+				$this->load->view('user_header');
+				$this->load->view('admin/admin_sidebar');
 				$this->load->view('admin/write_article');
 				$this->load->view('footer');
 			}
@@ -140,7 +144,8 @@ class Admin extends CI_Controller {
 
 				$data['title'] = 'Success';
 
-				$this->load->view('login_header', $data);
+				$this->load->view('header', $data);
+				$this->load->view('user_header');
 				$this->load->view('success');
 				$this->load->view('footer');
 				}
@@ -181,12 +186,13 @@ class Admin extends CI_Controller {
 	public function terms($term)
 	{
 		$this->load->helper(array('form', 'url'));
-		$this->load->library('form_validation');
+		$this->load->library(array('form_validation', 'user_agent'));
 		$this->load->driver('admin_driver');
 
 		$this->form_validation->set_rules('name', '名称', 'required');
 
 		$data['terms'] = $this->tifosi_model->term_query($term);
+		$data['term'] = $term;
 
 		if ($term == 2)
 		{
@@ -201,11 +207,28 @@ class Admin extends CI_Controller {
 		{
 			if ($this->form_validation->run() == FALSE)
 			{
-				$this->load->view('admin/admin_header');
-				$this->load->view('admin/terms', $data);
+				$this->load->view('header', $data);
+				$this->load->view('user_header');
+				$this->load->view('admin/admin_sidebar');
+				$this->load->view('admin/terms');
 				$this->load->view('footer');
 			}
+			else
+			{
+				$this->tifosi_model->term($this->input->post('name'), $this->input->post('term'));
+
+				redirect($this->agent->referrer());
+			}
 		}
+	}
+
+	public function delete_term($term_id)
+	{
+		$this->load->library('user_agent');
+
+		$this->tifosi_model->delete_term($term_id);
+
+		redirect($this->agent->referrer());
 	}
 }
 ?>

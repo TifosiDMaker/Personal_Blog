@@ -9,20 +9,22 @@ class Index extends CI_Controller {
 		$this->load->driver('admin_driver');
 	}
 
-	public function index($page = 1, $term = 0)
+	public function index($page = 0, $term = 0)
 	{
 
 		if ($term)
 		{
 			$config['base_url'] = base_url().'index.php?/'."/$term/";
 			$config['total_rows'] = $this->tifosi_model->entry_count('relationship', array('term_id' => $term));
-			$page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 0;
+			$config['first_url'] = base_url().'index.php?/'."/$term/1";
+			$page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 1;
 		}
 		else
 		{
-			$config['base_url'] = base_url().'index.php?/';
+			$config['base_url'] = base_url().'index.php?/page/';
 			$config['total_rows'] = $this->tifosi_model->entry_count('posts', array('post_status' => 'public'));
-			$page = ($this->uri->segment(1)) ? $this->uri->segment(1) : 0;
+			$config['first_url'] = base_url().'index.php?/page/1';
+			$page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 1;
 		}
 
 		$this->pagination->initialize($config);

@@ -116,7 +116,7 @@ class Tifosi_model extends CI_Model {
 		return $query->result();
 	}
 
-	public function article_query($id = FALSE, $page = 0, $term = 0)
+	public function article_query($id = FALSE, $page = 1, $term = 0)
 	{
 		if ($id === FALSE)
 		{
@@ -130,7 +130,7 @@ class Tifosi_model extends CI_Model {
 			}
 
 			$this->db->order_by('post_date', 'DESC');
-			$this->db->limit(10, $page);
+			$this->db->limit(10, ($page - 1) * 10);
 			$this->db->where('post_status', 'public');
 			
 			$query = $this->db->get();
@@ -191,6 +191,13 @@ class Tifosi_model extends CI_Model {
 		$this->db->where($where);
 
 		return $this->db->count_all_results();
+	}
+
+	public function delete_term($term_id)
+	{
+		$tables = array('terms', 'relationship');
+		$this->db->where('term_id', $term_id);
+		$this->db->delete($tables);
 	}
 }
 ?>

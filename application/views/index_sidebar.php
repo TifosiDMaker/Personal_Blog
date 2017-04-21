@@ -3,7 +3,7 @@
 			<ul style="margin:0px; padding:0px 0px 0px 20px">
 				<?php foreach ($category as $row): ?>
 					<li>
-					<?php echo anchor('#', $row->term_name); ?>
+					<?php echo anchor($row->term_id.'/0', $row->term_name); ?>
 					</li>
 				<?php endforeach; ?>
 			</ul>
@@ -17,7 +17,7 @@
 						}
 						else
 						{
-							echo anchor('#', $row->term_name);
+							echo anchor($row->term_id.'/0', $row->term_name);
 						} ?>
 						</span>
 					<?php endforeach; ?>

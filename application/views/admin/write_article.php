@@ -31,8 +31,11 @@
 		<br />
 		<label for="category">分类</label>
 		<select class="form-control" name="category">
-			<option>1</option>
-			<option>2</option>
+			<?php foreach ($term as $row)
+				{
+					echo '<option>'.$row->term_name.'</option>';
+				}
+			?>
 		</select>
 		<br />
 		<button type="submit" class="btn btn-primary">提交</button> 
