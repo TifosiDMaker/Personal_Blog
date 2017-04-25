@@ -58,3 +58,19 @@
 	height: 200px;
 	background-color: white;
 }
+
+a.red_link:link {
+	color: red;
+}
+
+a.red_link:visited {
+	color: red;
+}
+
+a.red_link:hover {
+	color: red;
+}
+
+a.red_link:active{
+	color: red;
+}

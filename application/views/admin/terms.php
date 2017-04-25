@@ -23,7 +23,7 @@
 		<?php foreach ($terms as $row): ?>
 			<tr>
 				<?php echo '<td>'.$row->term_name.'</td>'; ?>
-				<td>编辑<span style="color:grey"> | </span><span style="color:red"><?php echo anchor('admin/delete_term/'.$row->term_id, '删除'); ?></span></td>
+				<td>编辑<span style="color:grey"> | </span><span style="color:red"><?php echo anchor('admin/delete_term/'.$row->term_id, '删除', 'class="red_link"'); ?></span></td>
 			</tr>
 		<?php endforeach; ?>
 		</tbody>

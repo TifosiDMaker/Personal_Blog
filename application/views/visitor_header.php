@@ -1,3 +1,5 @@
+</head>
+<body>
 <div class="row top-row">
 	<div class="col-md-6">
 		<?php echo anchor('', '首页'); ?>

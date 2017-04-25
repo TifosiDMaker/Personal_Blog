@@ -197,10 +197,12 @@ class Admin extends CI_Controller {
 		if ($term == 2)
 		{
 			$data['header'] = '分类';
+			$data['title'] = '分类';
 		}
 		elseif ($term == 1)
 		{
 			$data['header'] = '标签';
+			$data['title'] = '标签';
 		}
 
 		if ($this->admin_driver->session_vali())
