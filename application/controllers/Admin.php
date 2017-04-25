@@ -210,6 +210,7 @@ class Admin extends CI_Controller {
 			if ($this->form_validation->run() == FALSE)
 			{
 				$this->load->view('header', $data);
+				$this->load->view('admin/confirm_box');
 				$this->load->view('user_header');
 				$this->load->view('admin/admin_sidebar');
 				$this->load->view('admin/terms');
