@@ -7,7 +7,13 @@ window.onload = function() {
 }
 $(document).ready(function() {
 	$("td").on('click', 'a.blue_link', function() {
-		alert("Hello!");
-		$(this).parent().parent().append("I'm here!");	
+		event.preventDefault();
+		$('.edit_form').hide();
+		$(this).parent().parent().next('.edit_form').show();
+	});
+
+	$('form').on('click', 'button.cancle_button', function() {
+		event.preventDefault();
+		$('.edit_form').hide();
 	});
 });

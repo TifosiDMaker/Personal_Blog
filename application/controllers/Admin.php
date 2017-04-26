@@ -5,7 +5,7 @@ class Admin extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('tifosi_model');
-		$this->load->library('session');
+		$this->load->library(array('user_agent', 'session'));
 		$this->load->helper('url');
 	}
 
@@ -227,9 +227,17 @@ class Admin extends CI_Controller {
 
 	public function delete_term($term_id)
 	{
-		$this->load->library('user_agent');
-
 		$this->tifosi_model->delete_term($term_id);
+
+		redirect($this->agent->referrer());
+	}
+	
+	public function edit_term()
+	{
+		$term_id = $this->input->post('term_id');
+		$term_name = $this->input->post('term_name');
+
+		$this->tifosi_model->edit_term($term_id, $term_name);
 
 		redirect($this->agent->referrer());
 	}

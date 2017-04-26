@@ -74,3 +74,15 @@ a.red_link:hover {
 a.red_link:active{
 	color: red;
 }
+
+.table_term_id {
+	display: none;
+}
+
+.no_border {
+	border-style: none none none none;
+}
+
+.edit_form {
+	display: none;
+}

@@ -199,5 +199,16 @@ class Tifosi_model extends CI_Model {
 		$this->db->where('term_id', $term_id);
 		$this->db->delete($tables);
 	}
+
+	public function edit_term($term_id, $term_name)
+	{
+		$data = array(
+			'term_id' => $term_id,
+			'term_name' => $term_name,
+			'term_group' => $this->db->get_where('terms', array('term_id' => $term_id))->row()->term_group,
+		);
+	
+		$this->db->replace('terms', $data);
+	}
 }
 ?>
