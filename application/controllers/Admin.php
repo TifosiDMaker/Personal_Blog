@@ -247,6 +247,7 @@ class Admin extends CI_Controller {
 		$data['links'] = $this->pagination->create_links();
 
 		$this->load->view('header', $data);
+		$this->load->view('admin/all_articles_js.php');
 		$this->load->view('user_header');
 		$this->load->view('admin/admin_sidebar');
 		$this->load->view('admin/all_articles');

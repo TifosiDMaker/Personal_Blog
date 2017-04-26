@@ -3,7 +3,7 @@
 	<table class="table">
 		<thead>
 			<tr>
-				<th>标题</th>
+				<th width="600">标题</th>
 				<th>分类</th>
 				<th>标签</th>
 				<th>时间</th>
@@ -11,8 +11,18 @@
 		</thead>
 		<tbody>
 		<?php foreach ($article as $row): ?>
-			<tr>
-				<td><?php echo anchor('article/'.$row->id, $row->post_title); ?></td>
+			<tr height="68">
+				<td>
+					<?php echo anchor('article/'.$row->id, $row->post_title); ?>
+					<br />
+					<p class="hover_display"><small>
+						<a href="#" class="edit_article">编辑文章</a>
+						<span style="color:grey"> | </span>
+						<span>
+						<a href="#" class="red_link">移入垃圾桶</a>
+						</span>
+					</small></p>
+				</td>
 				<td><?php echo anchor($this->tifosi_model->get_term($row->id, 2)->term_id.'/0', $this->tifosi_model->get_term($row->id, 2)->term_name); ?></td>
 				<td>
 					<?php foreach ($this->tifosi_model->get_term($row->id, 1)as $row_2)

@@ -86,3 +86,9 @@ a.red_link:active{
 .edit_form {
 	display: none;
 }
+
+.hover_display {
+	margin-top: 10px;
+	margin-bottom: 0px;
+	display: none;
+}

@@ -26,7 +26,7 @@
 				<?php echo '<td class="table_term_id">'.$row->term_id.'</td>'; ?>
 				<?php echo '<td class="table_term_name">'.$row->term_name.'</td>'; ?>
 				<td>
-					<a href="<?php echo '#'; ?>" class="blue_link">编辑</a>
+					<a href="#" class="blue_link">编辑</a>
 					<span style="color:grey"> | </span><span>
 						<a href="javascript:confirmIt('<?php echo site_url().'/admin/delete_term/'.$row->term_id; ?>')" class="red_link">删除</a>
 					</span>
