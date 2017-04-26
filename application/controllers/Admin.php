@@ -5,13 +5,13 @@ class Admin extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('tifosi_model');
-		$this->load->library(array('user_agent', 'session'));
-		$this->load->helper('url');
+		$this->load->library(array('user_agent', 'session', 'pagination'));
+		$this->load->helper(array('form', 'url'));
+		$this->load->driver('admin_driver');
 	}
 
 	public function login()
 	{
-		$this->load->helper(array('form', 'url'));
 		$this->load->library('form_validation');
 
 		$data['title'] = 'Login';
@@ -61,7 +61,6 @@ class Admin extends CI_Controller {
 
 	public function signup()
 	{
-		$this->load->helper(array('form', 'url'));
 		$this->load->library('form_validation');
 
 		$data['title'] = 'Signup';
@@ -106,9 +105,7 @@ class Admin extends CI_Controller {
 
 	public function write_article()
 	{
-		$this->load->helper(array('form', 'url'));
 		$this->load->library('form_validation');
-		$this->load->driver('admin_driver');
 		
 		$data['title'] = 'Management';
 		$data['term'] = $this->tifosi_model->term_query(2);
@@ -161,8 +158,6 @@ class Admin extends CI_Controller {
 
 	public function loginsuccess()
 	{
-		$this->load->helper('url');
-
 		$data['title'] = 'Success';
 
 		$this->load->view('header', $data);
@@ -172,8 +167,6 @@ class Admin extends CI_Controller {
 
 	public function logout()
 	{
-		$this->load->helper('url');
-
 		session_destroy();
 
 		$data['title'] = 'Logout';
@@ -185,9 +178,7 @@ class Admin extends CI_Controller {
 
 	public function terms($term)
 	{
-		$this->load->helper(array('form', 'url'));
-		$this->load->library(array('form_validation', 'user_agent'));
-		$this->load->driver('admin_driver');
+		$this->load->library('form_validation');
 
 		$this->form_validation->set_rules('name', '名称', 'required');
 
@@ -240,6 +231,26 @@ class Admin extends CI_Controller {
 		$this->tifosi_model->edit_term($term_id, $term_name);
 
 		redirect($this->agent->referrer());
+	}
+
+	public function all_articles($page = 0)
+	{
+		$config['base_url'] = base_url().'index.php?/admin/all_articles/';
+		$config['total_rows'] = $this->tifosi_model->entry_count('posts');
+		$config['first_url'] = base_url().'index.php?/admin/all_articles/1';
+		$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 1;
+
+		$this->pagination->initialize($config);
+
+		$data['title'] = 'All article';
+		$data['article'] = $this->tifosi_model->article_query(FALSE, $page);
+		$data['links'] = $this->pagination->create_links();
+
+		$this->load->view('header', $data);
+		$this->load->view('user_header');
+		$this->load->view('admin/admin_sidebar');
+		$this->load->view('admin/all_articles');
+		$this->load->view('footer');
 	}
 }
 ?>

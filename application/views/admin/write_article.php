@@ -1,3 +1,4 @@
+<h3>写文章</h3>
 <?php echo form_open('admin/write_article'); ?>
 <?php echo validation_errors(); ?>
 	<div class="col-md-8">

@@ -185,12 +185,19 @@ class Tifosi_model extends CI_Model {
 		return $query->result();
 	}
 
-	public function entry_count($table, $where)
+	public function entry_count($table, $where = 0)
 	{
-		$this->db->from($table);
-		$this->db->where($where);
+		if ($where)
+		{
+			$this->db->from($table);
+			$this->db->where($where);
 
-		return $this->db->count_all_results();
+			return $this->db->count_all_results();
+		}
+		else
+		{
+			return $this->db->count_all($table);
+		}
 	}
 
 	public function delete_term($term_id)
@@ -202,13 +209,11 @@ class Tifosi_model extends CI_Model {
 
 	public function edit_term($term_id, $term_name)
 	{
-		$data = array(
-			'term_id' => $term_id,
-			'term_name' => $term_name,
-			'term_group' => $this->db->get_where('terms', array('term_id' => $term_id))->row()->term_group,
-		);
-	
-		$this->db->replace('terms', $data);
+		$data['term_name'] = $term_name;
+
+		$this->db->where('term_id', $term_id);	
+
+		$this->db->update('terms', $data);
 	}
 }
 ?>

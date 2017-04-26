@@ -1,5 +1,5 @@
 <div class="col-md-3">
-	<?php echo '<h3>'.$header.'</h4>'; ?>
+	<?php echo '<h3>'.$header.'</h3>'; ?>
 	<?php echo form_open('admin/terms/'.$header); ?>
 	<?php echo validation_errors(); ?>
 		<div class="form-group">
