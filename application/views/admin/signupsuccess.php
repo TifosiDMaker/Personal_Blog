@@ -4,5 +4,5 @@
 <br />
 <br />
 <div class="text-center">
-	<?php echo anchor('', '返回首页').'   |   '. anchor('admin/write_article', '管理页面'); ?>
+	<?php echo anchor('', '返回首页').'   |   '. anchor('admin/all_articles', '管理页面'); ?>
 </div>

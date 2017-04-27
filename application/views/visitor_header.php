@@ -5,6 +5,6 @@
 		<?php echo anchor('', '首页'); ?>
 	</div>
 	<div class="col-md-6 text-right">
-		<?php echo anchor('admin/login', '登录'); ?> | <?php echo anchor('admin/signup', '注册'); ?>
+		<?php echo anchor('login', '登录'); ?> | <?php echo anchor('signup', '注册'); ?>
 	</div>
 </div>

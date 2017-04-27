@@ -24,11 +24,19 @@
 					<?php echo anchor('article/'.$row->id, $row->post_title); ?>
 					<br />
 					<p class="hover_display"><small>
+						<?php if($filter == 'trash'): ?>
+							<?php echo anchor('admin/out_of_trash/'.$row->id, '还原至公开'); ?>
+							<span style="color:gery"> | </span>
+							<span>
+							<?php echo anchor('admin/delete_article/'.$row->id, '彻底删除', 'class="red_link"'); ?>
+							</span>
+						<?php else: ?>
 						<a href="#" class="edit_article">编辑文章</a>
 						<span style="color:grey"> | </span>
 						<span>
-						<a href="#" class="red_link">移入垃圾桶</a>
+						<?php echo anchor('admin/move_to_trash/'.$row->id, '移入垃圾桶', 'class="red_link"'); ?>
 						</span>
+						<?php endif; ?>
 					</small></p>
 				</td>
 				<td><?php echo anchor($this->tifosi_model->get_term($row->id, 2)->term_id.'/0', $this->tifosi_model->get_term($row->id, 2)->term_name); ?></td>

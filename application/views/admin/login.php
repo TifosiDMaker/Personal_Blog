@@ -2,7 +2,7 @@
 	<div class="row farme">
 		<div class="col-md-4 col-md-offset-4">
 			<?php echo validation_errors(); ?>
-			<?php echo form_open('admin/login'); ?>
+			<?php echo form_open('login'); ?>
 				<div class="form-group">
 					<label for="username">用户名</label>
 					<input class="form-control" name="username">

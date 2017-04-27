@@ -227,5 +227,26 @@ class Tifosi_model extends CI_Model {
 
 		$this->db->update('terms', $data);
 	}
+
+	public function move_to_trash($id)
+	{
+		$this->db->where('id', $id);
+
+		$this->db->update('posts', array('post_status' => 'trash'));
+	}
+
+	public function out_of_trash($id)
+	{
+		$this->db->where('id', $id);
+
+		$this->db->update('posts', array('post_status' => 'public'));
+	}
+
+	public function delete_article($id)
+	{
+		$this->db->where('id', $id);
+
+		$this->db->delete('posts');
+	}
 }
 ?>
