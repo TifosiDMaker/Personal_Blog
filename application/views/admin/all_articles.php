@@ -1,5 +1,13 @@
 <div class="col-md-9">
 	<h3>所有文章</h3>
+	<br />
+	<p>
+		<?php echo anchor('admin/all_articles/all', '全部').' ('.$count['all'].') | '; ?>
+		<?php echo anchor('admin/all_articles/public', '公开').' ('.$count['public'].') | '; ?>
+		<?php echo anchor('admin/all_articles/private', '私密').' ('.$count['private'].') | '; ?>
+		<?php echo anchor('admin/all_articles/draft', '草稿').' ('.$count['draft'].') | '; ?>
+		<?php echo anchor('admin/all_articles/trash', '垃圾桶').' ('.$count['trash'].') | '; ?>
+	</p>
 	<table class="table">
 		<thead>
 			<tr>

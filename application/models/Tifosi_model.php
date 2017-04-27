@@ -125,21 +125,33 @@ class Tifosi_model extends CI_Model {
 			
 			if ($term)
 			{
-				$this->db->join('relationship', 'relationship.article_id = posts.id');
-				$this->db->where('term_id', $term);
+				if (is_numeric($term))
+				{
+					$this->db->join('relationship', 'relationship.article_id = posts.id');
+					$this->db->where('term_id', $term);
+				}
+				else
+				{	
+					$this->db->where($term);
+				}
+			}
+			else
+			{
+				$this->db->where('post_status', 'public');
 			}
 
 			$this->db->order_by('post_date', 'DESC');
 			$this->db->limit(10, ($page - 1) * 10);
-			$this->db->where('post_status', 'public');
 			
 			$query = $this->db->get();
 			return $query->result();
 		}
+		else
+		{
+			$query = $this->db->get_where('posts', array('id' => $id));
 
-		$query = $this->db->get_where('posts', array('id' => $id));
-
-		return $query->row();
+			return $query->row();
+		}
 	}
 
 	public function get_term($aid, $tid)

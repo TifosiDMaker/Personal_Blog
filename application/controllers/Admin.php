@@ -233,18 +233,35 @@ class Admin extends CI_Controller {
 		redirect($this->agent->referrer());
 	}
 
-	public function all_articles($page = 0)
+	public function all_articles($filter = 'all', $page = 0)
 	{
-		$config['base_url'] = base_url().'index.php?/admin/all_articles/';
-		$config['total_rows'] = $this->tifosi_model->entry_count('posts');
-		$config['first_url'] = base_url().'index.php?/admin/all_articles/1';
-		$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 1;
+		$config['base_url'] = base_url().'index.php?/admin/all_articles/'.$filter.'/';
+		$config['first_url'] = base_url().'index.php?/admin/all_articles/'.$filter.'/1';
+
+		if ($filter == 'all')
+		{
+			$filter = array('post_status !=' => 'trash');
+		}
+		else
+		{
+			$filter = array('post_status' => $filter);
+		}
+
+		$config['total_rows'] = $this->tifosi_model->entry_count('posts', $filter);
+		$page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 1;
 
 		$this->pagination->initialize($config);
 
 		$data['title'] = 'All article';
-		$data['article'] = $this->tifosi_model->article_query(FALSE, $page);
+		$data['article'] = $this->tifosi_model->article_query(FALSE, $page, $filter);
 		$data['links'] = $this->pagination->create_links();
+		$data['count'] = array(
+			'all' => $this->tifosi_model->entry_count('posts', array('post_status !=' => 'trash')),
+			'public' => $this->tifosi_model->entry_count('posts', array('post_status' => 'public')),
+			'private' => $this->tifosi_model->entry_count('posts', array('post_status' => 'private')),
+			'draft' => $this->tifosi_model->entry_count('posts', array('post_status' => 'draft')),
+			'trash' => $this->tifosi_model->entry_count('posts', array('post_status' => 'trash')),
+		);
 
 		$this->load->view('header', $data);
 		$this->load->view('admin/all_articles_js.php');
