@@ -31,7 +31,7 @@
 							<?php echo anchor('admin/delete_article/'.$row->id, '彻底删除', 'class="red_link"'); ?>
 							</span>
 						<?php else: ?>
-						<a href="#" class="edit_article">编辑文章</a>
+						<?php echo anchor('admin/write_article/'.$row->id, '编辑文章', 'class="edit_article"'); ?>
 						<span style="color:grey"> | </span>
 						<span>
 						<?php echo anchor('admin/move_to_trash/'.$row->id, '移入垃圾桶', 'class="red_link"'); ?>

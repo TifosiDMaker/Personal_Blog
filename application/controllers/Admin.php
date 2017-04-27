@@ -9,57 +9,71 @@ class Admin extends MY_Controller {
 		$this->load->helper(array('form', 'url'));
 	}
 
-	public function write_article()
+	public function write_article($id = 0)
 	{
 		$this->load->library('form_validation');
 		
 		$data['title'] = 'Management';
 		$data['term'] = $this->tifosi_model->term_query(2);
+		if ($id)
+		{
+			$article = $this->tifosi_model->article_query($id);
+			$tag = $this->tifosi_model->get_term($id, 1);
+			$category = $this->tifosi_model->get_term($id, 2);
+			
+			$a = '';
+			foreach ($tag as $one) {$a .= $one->term_name.',';}
+			$a = substr($a, 0, -1);
+
+			$data['post_title'] = $article->post_title;
+			$data['post_content'] = $article->post_content;
+			$data['post_status'] = $article->post_status;
+			$data['post_category'] = $category->term_name;
+			$data['post_tag'] = $a;
+		}
 
 		$this->form_validation->set_rules('articleTitle', '标题', 'required');
 
-		if ($this->admin_driver->session_vali())
+		if ($this->form_validation->run() == FALSE)
 		{
-			if ($this->form_validation->run() == FALSE)
+			$this->load->view('header', $data);
+			$this->load->view('user_header');
+			$this->load->view('admin/admin_sidebar');
+			if ($id)
 			{
-				$this->load->view('header', $data);
-				$this->load->view('user_header');
-				$this->load->view('admin/admin_sidebar');
-				$this->load->view('admin/write_article');
-				$this->load->view('footer');
+				$this->load->view('admin/edit_article');
 			}
 			else
 			{
-				$this->tifosi_model->write_article();
-
-				$tags = explode(',', $this->input->post('tags'));
-
-				foreach ($tags as $tag)
-				{
-					if (!$this->tifosi_model->id_query($tag, 1))
-					{
-						$this->tifosi_model->term($tag, 1);
-					}
-					$this->tifosi_model->relation($this->tifosi_model->id_query($tag, 1));
-				}
-
-				$this->tifosi_model->relation($this->tifosi_model->id_query($this->input->post('category'), 2));
-
-				$data['title'] = 'Success';
-
-				$this->load->view('header', $data);
-				$this->load->view('user_header');
-				$this->load->view('success');
-				$this->load->view('footer');
-				}
-
+				$this->load->view('admin/write_article');
+			}
+			$this->load->view('footer');
 		}
 		else
 		{
+			$this->tifosi_model->write_article();
+
+			$tags = explode(',', $this->input->post('tags'));
+
+			foreach ($tags as $tag)
+			{
+				if (!$this->tifosi_model->id_query($tag, 1))
+				{
+					$this->tifosi_model->term($tag, 1);
+				}
+				$this->tifosi_model->relation($this->tifosi_model->id_query($tag, 1));
+			}
+
+			$this->tifosi_model->relation($this->tifosi_model->id_query($this->input->post('category'), 2));
+
+			$data['title'] = 'Success';
+
 			$this->load->view('header', $data);
-			$this->load->view('admin/no_permission');
+			$this->load->view('user_header');
+			$this->load->view('success');
 			$this->load->view('footer');
 		}
+
 	}
 
 	public function loginsuccess()
