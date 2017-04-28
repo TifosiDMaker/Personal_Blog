@@ -12,9 +12,3 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 
-$hook['post_controller_constructor'] = array(
-	'class' =>'Myhook',
-	'function' => 'session_vail',
-	'filename' => 'Myhook.php',
-	'filepath' => 'hooks',
-);

@@ -57,4 +57,4 @@ $route['admin/terms/category'] = 'admin/terms/2';
 $route['(:any)'] = 'index/$1';
 $route['default_controller'] = 'index';
 $route['404_override'] = '';
-$route['translate_uri_dashes'] = FALSE;
+$route['translate_uri_dashes'] = false;
