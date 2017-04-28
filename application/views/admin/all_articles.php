@@ -25,23 +25,23 @@
                     <br />
                     <p class="hover_display"><small>
                         <?php if($filter == 'trash'): ?>
-                            <?php echo anchor('admin/out_of_trash/'.$row->id, '还原至公开'); ?>
+                            <?php echo anchor('admin/outOfTrash/'.$row->id, '还原至公开'); ?>
                             <span style="color:gery"> | </span>
                             <span>
-                            <?php echo anchor('admin/delete_article/'.$row->id, '彻底删除', 'class="red_link"'); ?>
+                            <?php echo anchor('admin/deleteArticle/'.$row->id, '彻底删除', 'class="red_link"'); ?>
                             </span>
                         <?php else: ?>
-                        <?php echo anchor('admin/write_article/'.$row->id, '编辑文章', 'class="edit_article"'); ?>
+                        <?php echo anchor('admin/writeArticle/'.$row->id, '编辑文章', 'class="edit_article"'); ?>
                         <span style="color:grey"> | </span>
                         <span>
-                        <?php echo anchor('admin/move_to_trash/'.$row->id, '移入垃圾桶', 'class="red_link"'); ?>
+                        <?php echo anchor('admin/moveToTrash/'.$row->id, '移入垃圾桶', 'class="red_link"'); ?>
                         </span>
                         <?php endif; ?>
                     </small></p>
                 </td>
-                <td><?php echo anchor($this->tifosi_model->get_term($row->id, 2)->term_id.'/0', $this->tifosi_model->get_term($row->id, 2)->term_name); ?></td>
+                <td><?php echo anchor($this->tifosi_model->getTerm($row->id, 2)->term_id.'/0', $this->tifosi_model->get_term($row->id, 2)->term_name); ?></td>
                 <td>
-                    <?php foreach ($this->tifosi_model->get_term($row->id, 1)as $row_2)
+                    <?php foreach ($this->tifosi_model->getTerm($row->id, 1)as $row_2)
                     {
                         if (!$row_2->term_name) {
                             echo '';

@@ -28,13 +28,13 @@
                 <td>
                     <a href="#" class="blue_link">编辑</a>
                     <span style="color:grey"> | </span><span>
-                        <a href="javascript:confirmIt('<?php echo site_url().'/admin/delete_term/'.$row->term_id; ?>')" class="red_link">删除</a>
+                        <a href="javascript:confirmIt('<?php echo site_url().'/admin/deleteTerm/'.$row->term_id; ?>')" class="red_link">删除</a>
                     </span>
                 </td>
             </tr>
             <tr class="no_border edit_form">
             <td colspan="2">
-                <?php echo form_open('admin/edit_term', 'class="form-inline"'); ?>
+                <?php echo form_open('admin/editTerm', 'class="form-inline"'); ?>
                     <div class="form-group">
                         <label class="sr-only" for="term_name">term name</label>
                         <input name="term_id" type="hidden" class="form-control" value="<?php echo $row->term_id; ?>">

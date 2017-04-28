@@ -17,7 +17,7 @@
                     <span class="glyphicon glyphicon-time" aria-hidden="true"></span> <?php echo $row->post_date; ?>
                     <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>  <?php echo anchor($this->tifosi_model->get_term($row->id, 2)->term_id.'/0', $this->tifosi_model->get_term($row->id, 2)->term_name); ?>
                     <span class="glyphicon glyphicon-tags" aria-hidden="true"></span>
-                    <?php foreach ($this->tifosi_model->get_term($row->id, 1) as $row_2) {
+                    <?php foreach ($this->tifosi_model->getTerm($row->id, 1) as $row_2) {
                         if (!$row_2->term_name) {
                             echo '';
                         }

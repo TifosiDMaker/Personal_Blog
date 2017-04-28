@@ -1,5 +1,5 @@
 <h3>写文章</h3>
-<?php echo form_open('admin/write_article'); ?>
+<?php echo form_open('admin/writeArticle'); ?>
 <?php echo validation_errors(); ?>
     <div class="col-md-8">
         <div class="form-group">
@@ -54,6 +54,6 @@
             ?>
         </select>
         <br />
-        <button type="submit" class="btn btn-primary">提交</button> 
+        <button type="submit" class="btn btn-primary">提交</button>
     </div>
 </form>

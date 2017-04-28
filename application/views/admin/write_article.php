@@ -1,5 +1,5 @@
 <h3>写文章</h3>
-<?php echo form_open('admin/write_article'); ?>
+<?php echo form_open('admin/writeArticle'); ?>
 <?php echo validation_errors(); ?>
     <div class="col-md-8">
         <div class="form-group">
@@ -26,7 +26,7 @@
             <input type="radio" name="status" value="private"> 私密
         </label>
         <label class="radio-inline">
-            <input type="radio" name="status" value="draft"> 草稿 
+            <input type="radio" name="status" value="draft"> 草稿
         </label>
         <br />
         <br />
@@ -38,6 +38,6 @@
             ?>
         </select>
         <br />
-        <button type="submit" class="btn btn-primary">提交</button> 
+        <button type="submit" class="btn btn-primary">提交</button>
     </div>
 </form>

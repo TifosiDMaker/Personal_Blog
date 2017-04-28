@@ -15,7 +15,7 @@
                             echo '';
                         } else {
     echo anchor($row->term_id.'/0', $row->term_name);
-} ?>
+                        } ?>
                         </span>
                     <?php endforeach; ?>
                 </p>

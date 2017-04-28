@@ -23,5 +23,3 @@ class Admin_Driver extends CI_Driver_Library
         }
     }
 }
-?>
-

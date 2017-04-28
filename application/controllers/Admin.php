@@ -12,14 +12,14 @@ class Admin extends MY_Controller
     public function writeArticle($id = 0)
     {
         $this->load->library('form_validation');
-        
+
         $data['title'] = 'Management';
-        $data['term'] = $this->tifosi_model->term_query(2);
+        $data['term'] = $this->tifosi_model->termQuery(2);
         if ($id) {
-            $article = $this->tifosi_model->article_query($id);
-            $tag = $this->tifosi_model->get_term($id, 1);
-            $category = $this->tifosi_model->get_term($id, 2);
-            
+            $article = $this->tifosi_model->articleQuery($id);
+            $tag = $this->tifosi_model->getTerm($id, 1);
+            $category = $this->tifosi_model->getTerm($id, 2);
+
             $a = '';
             foreach ($tag as $one) {
                 $a .= $one->term_name.',';
@@ -46,20 +46,20 @@ class Admin extends MY_Controller
             }
             $this->load->view('footer');
         } else {
-            $this->tifosi_model->write_article();
+            $this->tifosi_model->writeArticle();
 
             $tags = explode(',', $this->input->post('tags'));
 
             foreach ($tags as $tag) {
-                if (!$this->tifosi_model->id_query($tag, 1)) {
+                if (!$this->tifosi_model->idQuery($tag, 1)) {
                     $this->tifosi_model->term($tag, 1);
                 }
-                $query_tag = $this->tifosi_model->id_query($tag, 1);
+                $query_tag = $this->tifosi_model->idQuery($tag, 1);
                 $this->tifosi_model->relation($query_tag);
             }
 
             $post_cate = $this->input->post('category');
-            $query_cate = $this->tifosi_model->id_query(post_cate, 2);
+            $query_cate = $this->tifosi_model->idQuery(post_cate, 2);
             $this->tifosi_model->relation($query_cate);
 
             $data['title'] = 'Success';
@@ -87,7 +87,7 @@ class Admin extends MY_Controller
 
         $this->form_validation->set_rules('name', '名称', 'required');
 
-        $data['terms'] = $this->tifosi_model->term_query($term);
+        $data['terms'] = $this->tifosi_model->termQuery($term);
         $data['term'] = $term;
 
         if ($term == 2) {
@@ -119,17 +119,17 @@ class Admin extends MY_Controller
 
     public function deleteTerm($term_id)
     {
-        $this->tifosi_model->delete_term($term_id);
+        $this->tifosi_model->deleteTerm($term_id);
 
         redirect($this->agent->referrer());
     }
-    
+
     public function editTerm()
     {
         $term_id = $this->input->post('term_id');
         $term_name = $this->input->post('term_name');
 
-        $this->tifosi_model->edit_term($term_id, $term_name);
+        $this->tifosi_model->editTerm($term_id, $term_name);
 
         redirect($this->agent->referrer());
     }
@@ -147,20 +147,20 @@ class Admin extends MY_Controller
             $filter = array('post_status' => $filter);
         }
 
-        $config['total_rows'] = $this->tifosi_model->entry_count('posts', $filter);
+        $config['total_rows'] = $this->tifosi_model->entryCount('posts', $filter);
         $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 1;
 
         $this->pagination->initialize($config);
 
         $data['title'] = 'All article';
-        $data['article'] = $this->tifosi_model->article_query(false, $page, $filter);
+        $data['article'] = $this->tifosi_model->articleQuery(false, $page, $filter);
         $data['links'] = $this->pagination->create_links();
         $data['count'] = array(
-            'all' => $this->tifosi_model->entry_count('posts', array('post_status !=' => 'trash')),
-            'public' => $this->tifosi_model->entry_count('posts', array('post_status' => 'public')),
-            'private' => $this->tifosi_model->entry_count('posts', array('post_status' => 'private')),
-            'draft' => $this->tifosi_model->entry_count('posts', array('post_status' => 'draft')),
-            'trash' => $this->tifosi_model->entry_count('posts', array('post_status' => 'trash')),
+            'all' => $this->tifosi_model->entryCount('posts', array('post_status !=' => 'trash')),
+            'public' => $this->tifosi_model->entryCount('posts', array('post_status' => 'public')),
+            'private' => $this->tifosi_model->entryCount('posts', array('post_status' => 'private')),
+            'draft' => $this->tifosi_model->entryCount('posts', array('post_status' => 'draft')),
+            'trash' => $this->tifosi_model->entryCount('posts', array('post_status' => 'trash')),
         );
 
         $this->load->view('header', $data);
@@ -173,23 +173,22 @@ class Admin extends MY_Controller
 
     public function moveToTrash($id)
     {
-        $this->tifosi_model->move_to_trash($id);
+        $this->tifosi_model->moveToTrash($id);
 
         redirect($this->agent->referrer());
     }
 
     public function outOfTrash($id)
     {
-        $this->tifosi_model->out_of_trash($id);
+        $this->tifosi_model->outOfTrash($id);
 
         redirect($this->agent->referrer());
     }
 
     public function deleteArticle($id)
     {
-        $this->tifosi_model->delete_article($id);
+        $this->tifosi_model->deleteArticle($id);
 
         redirect($this->agent->referrer());
     }
 }
-

@@ -14,12 +14,12 @@ class Index extends CI_Controller
     {
         if ($term) {
             $config['base_url'] = base_url().'index.php?/'."/$term/";
-            $config['total_rows'] = $this->tifosi_model->entry_count('relationship', array('term_id' => $term));
+            $config['total_rows'] = $this->tifosi_model->entryCount('relationship', array('term_id' => $term));
             $config['first_url'] = base_url().'index.php?/'."/$term/1";
             $page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 1;
         } else {
             $config['base_url'] = base_url().'index.php?/page/';
-            $config['total_rows'] = $this->tifosi_model->entry_count('posts', array('post_status' => 'public'));
+            $config['total_rows'] = $this->tifosi_model->entryCount('posts', array('post_status' => 'public'));
             $config['first_url'] = base_url().'index.php?/page/1';
             $page = ($this->uri->segment(2)) ? $this->uri->segment(2) : 1;
         }
@@ -27,9 +27,9 @@ class Index extends CI_Controller
         $this->pagination->initialize($config);
 
         $data['title'] = 'Tifosi\'s Blog';
-        $data['article'] = $this->tifosi_model->article_query(false, $page, $term);
-        $data['category'] = $this->tifosi_model->term_query(2);
-        $data['tag'] = $this->tifosi_model->term_query(1);
+        $data['article'] = $this->tifosi_model->articleQuery(false, $page, $term);
+        $data['category'] = $this->tifosi_model->termQuery(2);
+        $data['tag'] = $this->tifosi_model->termQuery(1);
         $data['page'] = $page;
         $data['links'] = $this->pagination->create_links();
 
@@ -48,15 +48,15 @@ class Index extends CI_Controller
 
     public function article($id)
     {
-        $row = $this->tifosi_model->article_query($id);
+        $row = $this->tifosi_model->articleQuery($id);
 
         $data['title'] = $row->post_title;
         $data['content'] = $row->post_content;
         $data['post_time'] = $row->post_date;
         $data['id'] = $row->id;
-        $data['category'] = $this->tifosi_model->term_query(2);
-        $data['tag'] = $this->tifosi_model->term_query(1);
-        $data['comments'] = $this->tifosi_model->comment_query($id);
+        $data['category'] = $this->tifosi_model->termQuery(2);
+        $data['tag'] = $this->tifosi_model->termQuery(1);
+        $data['comments'] = $this->tifosi_model->commentQuery($id);
 
         $this->load->view('header', $data);
 
@@ -110,15 +110,15 @@ class Index extends CI_Controller
                 $this->load->view('admin/login');
                 $this->load->view('footer');
             } else {
-                if ($this->tifosi_model->user_query()) {
-                    $this->session->set_userdata($this->tifosi_model->user_query());
-                    
+                if ($this->tifosi_model->userQuery()) {
+                    $this->session->set_userdata($this->tifosi_model->userQuery());
+
                     $this->load->view('header', $data);
                     $this->load->view('admin/signupsuccess');
                     $this->load->view('footer');
                 } else {
                     $data['title'] = 'Failed';
-                
+
                     $this->load->view('header', $data);
                     $this->load->view('admin/loginfailed');
                     $this->load->view('footer');
@@ -173,11 +173,10 @@ class Index extends CI_Controller
             $this->tifosi_model->signup();
 
             $data['title'] = 'Signup success';
-            
+
             $this->load->view('header', $data);
             $this->load->view('admin/signupsuccess');
             $this->load->view('footer');
         }
     }
 }
-?>
