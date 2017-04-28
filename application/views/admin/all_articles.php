@@ -2,11 +2,11 @@
     <h3>所有文章</h3>
     <br />
     <p>
-        <?php echo anchor('admin/all_articles/all', '全部').' ('.$count['all'].') | '; ?>
-        <?php echo anchor('admin/all_articles/public', '公开').' ('.$count['public'].') | '; ?>
-        <?php echo anchor('admin/all_articles/private', '私密').' ('.$count['private'].') | '; ?>
-        <?php echo anchor('admin/all_articles/draft', '草稿').' ('.$count['draft'].') | '; ?>
-        <?php echo anchor('admin/all_articles/trash', '垃圾桶').' ('.$count['trash'].') | '; ?>
+        <?php echo anchor('admin/allArticles/all', '全部').' ('.$count['all'].') | '; ?>
+        <?php echo anchor('admin/allArticles/public', '公开').' ('.$count['public'].') | '; ?>
+        <?php echo anchor('admin/allArticles/private', '私密').' ('.$count['private'].') | '; ?>
+        <?php echo anchor('admin/allArticles/draft', '草稿').' ('.$count['draft'].') | '; ?>
+        <?php echo anchor('admin/allArticles/trash', '垃圾桶').' ('.$count['trash'].') | '; ?>
     </p>
     <table class="table">
         <thead>
@@ -39,7 +39,7 @@
                         <?php endif; ?>
                     </small></p>
                 </td>
-                <td><?php echo anchor($this->tifosi_model->getTerm($row->id, 2)->term_id.'/0', $this->tifosi_model->get_term($row->id, 2)->term_name); ?></td>
+                <td><?php echo anchor($this->tifosi_model->getTerm($row->id, 2)->term_id.'/0', $this->tifosi_model->getTerm($row->id, 2)->term_name); ?></td>
                 <td>
                     <?php foreach ($this->tifosi_model->getTerm($row->id, 1)as $row_2)
                     {

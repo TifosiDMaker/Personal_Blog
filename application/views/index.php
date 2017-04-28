@@ -15,13 +15,12 @@
                 <h3><?php echo anchor('article/'.$row->id, $row->post_title); ?></h3>
                 <p class="post-meta">
                     <span class="glyphicon glyphicon-time" aria-hidden="true"></span> <?php echo $row->post_date; ?>
-                    <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>  <?php echo anchor($this->tifosi_model->get_term($row->id, 2)->term_id.'/0', $this->tifosi_model->get_term($row->id, 2)->term_name); ?>
+                    <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>  <?php echo anchor($this->tifosi_model->getTerm($row->id, 2)->term_id.'/0', $this->tifosi_model->getTerm($row->id, 2)->term_name); ?>
                     <span class="glyphicon glyphicon-tags" aria-hidden="true"></span>
                     <?php foreach ($this->tifosi_model->getTerm($row->id, 1) as $row_2) {
                         if (!$row_2->term_name) {
                             echo '';
-                        }
-                        else {
+                        } else {
                             echo anchor($row_2->term_id.'/0', $row_2->term_name).' | ';
                         }
                     } ?>

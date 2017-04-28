@@ -35,7 +35,7 @@ class Index extends CI_Controller
 
         $this->load->view('header', $data);
 
-        if ($this->admin_driver->session_exist()) {
+        if ($this->admin_driver->sessionExist()) {
             $this->load->view('user_header');
         } else {
             $this->load->view('visitor_header');
@@ -60,7 +60,7 @@ class Index extends CI_Controller
 
         $this->load->view('header', $data);
 
-        if ($this->admin_driver->session_exist()) {
+        if ($this->admin_driver->sessionExist()) {
             $this->load->view('user_header');
             $this->load->view('article');
             $this->load->view('view_comments');

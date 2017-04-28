@@ -9,7 +9,7 @@ class MY_Controller extends CI_Controller
         $this->load->library('session');
         $this->load->helper('url');
 
-        if (!$this->admin_driver->session_vali()) {
+        if (!$this->admin_driver->sessionVali()) {
             $data['title'] = 'No permission';
 
             $this->load->view('header', $data);

@@ -98,7 +98,7 @@ class Admin extends MY_Controller
             $data['title'] = '标签';
         }
 
-        if ($this->admin_driver->session_vali()) {
+        if ($this->admin_driver->sessionVali()) {
             if ($this->form_validation->run() == false) {
                 $this->load->view('header', $data);
                 $this->load->view('admin/confirm_box');
