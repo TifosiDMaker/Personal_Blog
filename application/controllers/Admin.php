@@ -13,7 +13,7 @@ class Admin extends MY_Controller
     {
         $this->load->library('form_validation');
 
-        $data['title'] = 'Management';
+        $data['title'] = 'Write Article';
         $data['term'] = $this->tifosi_model->termQuery(2);
         if ($id) {
             $article = $this->tifosi_model->articleQuery($id);
