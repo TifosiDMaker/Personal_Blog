@@ -13,6 +13,12 @@
                         </ul>
                     <li><a href="#">评论</a></li>
                     <li class="collapsedItem"><a href="#">用户</a></li>
+                    <li class="sidebar-menu-item open">
+                        <ul class="sidebar-submenu">
+                            <li class="sidebar-menu-item">账户管理</li>
+                            <li class="sidebar-menu-item">用户管理</li>
+                        </ul>
+                    </li>
                 </ul>
             </nav>
         </div>

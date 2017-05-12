@@ -2,5 +2,5 @@
 <br />
 <br />
 <div class="text-center">
-    <?php echo anchor('admin/login', '后退') ?>
+    <?php echo anchor('login', '后退') ?>
 </div>
