@@ -1,4 +1,4 @@
-<div class="col-md-3">
+<div class="col-md-3 col-md-offset-1">
     <?php echo '<h3>'.$header.'</h3>'; ?>
     <?php echo form_open('admin/terms/'.$header); ?>
     <?php echo validation_errors(); ?>

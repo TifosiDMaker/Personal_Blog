@@ -1,7 +1,7 @@
-<h3>写文章</h3>
 <?php echo form_open('admin/writeArticle'); ?>
 <?php echo validation_errors(); ?>
-    <div class="col-md-8">
+    <div class="col-md-8 col-md-offset-1">
+        <h3>写文章</h3>
         <div class="form-group">
             <label for="articleTitle">标题</label>
             <input class="form-control" name="articleTitle">

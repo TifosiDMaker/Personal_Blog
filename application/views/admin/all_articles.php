@@ -1,4 +1,4 @@
-<div class="col-md-9">
+<div class="col-md-9 col-md-offset-1">
     <h3>所有文章</h3>
     <br />
     <p>
