@@ -48,6 +48,7 @@ class Admin extends MY_Controller
             $this->load->view('footer');
         } else {
             $this->tifosi_model->writeArticle();
+            $this->tifosi_model->delRelation();
 
             $tags = explode(',', $this->input->post('tags'));
 

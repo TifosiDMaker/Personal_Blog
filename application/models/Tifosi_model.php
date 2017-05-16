@@ -1,7 +1,7 @@
 <?php
 class Tifosi_Model extends CI_Model
 {
-    
+
     public function __construct()
     {
         parent::__construct();
@@ -23,7 +23,7 @@ class Tifosi_Model extends CI_Model
     {
         $query = $this->db->get_where('users', array('username' => $this->input->post('username')));
         $row = $query->row();
-        
+
         if (isset($row)) {
             if ($row->password == md5($this->input->post('password'))) {
                 return array(
@@ -40,13 +40,20 @@ class Tifosi_Model extends CI_Model
 
     public function writeArticle()
     {
+        $query = $this->db->get_where('posts', array('post_title' => $this->input->post('articleTitle')));
+        $row = $query->row();
+
         $data = array(
             'post_title' => $this->input->post('articleTitle'),
             'post_content' => $this->input->post('article'),
             'post_status' => $this->input->post('status')
         );
 
-        return $this->db->insert('posts', $data);
+        if (isset($row)) {
+            return $this->db->update('posts', $data, array('id' => $row->id));
+        } else {
+            return $this->db->insert('posts', $data);
+        }
     }
 
     public function idQuery($name, $column)
@@ -69,17 +76,27 @@ class Tifosi_Model extends CI_Model
         return $tags = explode(',', $this->input->post('tags'));
     }
 
+    public function delRelation()
+    {
+        $query = $this->db->get_where('posts', array('post_title' => $this->input->post('articleTitle')));
+        $row = $query->row();
+
+        $id = $row->id;
+        $this->db->where('article_id', $id);
+        $this->db->delete('relationship');
+    }
+
     public function relation($name)
     {
         $query = $this->db->get_where('posts', array('post_title' => $this->input->post('articleTitle')));
         $row = $query->row();
-        
-        if (isset($row)) {
-            $id = $row->id;
-        } else {
-            $id = 1000;
-        }
-        
+
+        //if (isset($row)) {
+        $id = $row->id;
+        //} else {
+        //    $id = 1000;
+        //}
+
         $data = array(
             'article_id' => $id,
             'term_id' => $name
@@ -96,7 +113,7 @@ class Tifosi_Model extends CI_Model
         );
 
         return $this->db->insert('terms', $data);
-    }           
+    }
 
     public function termQuery($term)
     {
@@ -110,12 +127,12 @@ class Tifosi_Model extends CI_Model
         if ($id === false) {
             $this->db->select('*');
             $this->db->from('posts');
-            
+
             if ($term) {
                 if (is_numeric($term)) {
                     $this->db->join('relationship', 'relationship.article_id = posts.id');
                     $this->db->where('term_id', $term);
-                } else {   
+                } else {
                     $this->db->where($term);
                 }
             } else {
@@ -124,7 +141,7 @@ class Tifosi_Model extends CI_Model
 
             $this->db->order_by('post_date', 'DESC');
             $this->db->limit(10, ($page - 1) * 10);
-            
+
             $query = $this->db->get();
             return $query->result();
         } else {
@@ -197,7 +214,7 @@ class Tifosi_Model extends CI_Model
     {
         $data['term_name'] = $term_name;
 
-        $this->db->where('term_id', $term_id);  
+        $this->db->where('term_id', $term_id);
 
         $this->db->update('terms', $data);
     }
@@ -228,4 +245,3 @@ class Tifosi_Model extends CI_Model
 
     }
 }
-
