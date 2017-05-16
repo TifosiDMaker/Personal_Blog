@@ -205,9 +205,13 @@ class Tifosi_Model extends CI_Model
 
     public function deleteTerm($term_id)
     {
-        $tables = array('terms', 'relationship');
+        $data = array(
+            'term_id' => 44,
+        );
+
         $this->db->where('term_id', $term_id);
-        $this->db->delete($tables);
+        $this->db->delete('terms');
+        $this->db->update('relationship', $data, array('term_id' => $term_id));
     }
 
     public function editTerm($term_id, $term_name)
