@@ -222,5 +222,10 @@ class Tifosi_Model extends CI_Model
 
         $this->db->delete('posts');
     }
+
+    public function commentsQuery()
+    {
+
+    }
 }
 

@@ -38,6 +38,7 @@ class Admin extends MY_Controller
         if ($this->form_validation->run() == false) {
             $this->load->view('header', $data);
             $this->load->view('user_header');
+            $this->load->view('admin/all_articles_js.php');
             $this->load->view('admin/admin_sidebar');
             if ($id) {
                 $this->load->view('admin/edit_article');
@@ -59,7 +60,7 @@ class Admin extends MY_Controller
             }
 
             $post_cate = $this->input->post('category');
-            $query_cate = $this->tifosi_model->idQuery(post_cate, 2);
+            $query_cate = $this->tifosi_model->idQuery($post_cate, 2);
             $this->tifosi_model->relation($query_cate);
 
             $data['title'] = 'Success';
@@ -102,6 +103,7 @@ class Admin extends MY_Controller
             if ($this->form_validation->run() == false) {
                 $this->load->view('header', $data);
                 $this->load->view('admin/confirm_box');
+                $this->load->view('admin/all_articles_js.php');
                 $this->load->view('user_header');
                 $this->load->view('admin/admin_sidebar');
                 $this->load->view('admin/terms');

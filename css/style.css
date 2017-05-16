@@ -92,3 +92,7 @@ a.red_link:active{
 	margin-bottom: 0px;
 	display: none;
 }
+
+.hide1, .hide2 {
+    display: none;
+}
