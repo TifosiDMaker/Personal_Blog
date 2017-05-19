@@ -181,14 +181,25 @@ class Tifosi_Model extends CI_Model
         return $this->db->insert('comments', $data);
     }
 
-    public function commentQuery($id)
+    public function commentQuery($id, $page = 1, $filter = 0)
     {
-        $this->db->where('post_id', $id);
-        $this->db->order_by('id', 'DESC');
+        if ($id) {
+            $this->db->where('post_id', $id);
+            $this->db->order_by('id', 'DESC');
 
-        $query = $this->db->get('comments');
+            $query = $this->db->get('comments');
 
-        return $query->result();
+            return $query->result();
+        } else {
+            $this->db->select('*');
+            $this->db->from('comments');
+            $this->db->join('posts', 'comments.post_id = posts.id');
+            $this->db->where('status', $filter);
+            $this->db->order_by('time', 'DESC');
+            $this->db->limit(10, ($page - 1) * 10);
+
+            $query = $this->db->get();
+            return $query->result();
     }
 
     public function entryCount($table, $where = 0)
@@ -242,10 +253,5 @@ class Tifosi_Model extends CI_Model
         $this->db->where('id', $id);
 
         $this->db->delete('posts');
-    }
-
-    public function commentsQuery()
-    {
-
     }
 }

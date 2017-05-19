@@ -46,7 +46,7 @@
                         if (!$row_2->term_name) {
                             echo '';
                         } else {
-                            echo anchor($row_2->term_id.'/0', $row_2->term_name).'、';
+                            echo anchor($row_2->term_id.'/0', $row_2->term_name).' | ';
                         }
                     } ?>
                 </td>

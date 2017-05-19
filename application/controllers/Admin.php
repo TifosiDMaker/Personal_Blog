@@ -139,8 +139,8 @@ class Admin extends MY_Controller
 
     public function allArticles($filter = 'all', $page = 0)
     {
-        $config['base_url'] = base_url().'index.php?/admin/all_articles/'.$filter.'/';
-        $config['first_url'] = base_url().'index.php?/admin/all_articles/'.$filter.'/1';
+        $config['base_url'] = base_url().'index.php?/admin/allArticles/'.$filter.'/';
+        $config['first_url'] = base_url().'index.php?/admin/allArticles/'.$filter.'/1';
 
         $data['filter'] = $filter;
 
@@ -172,6 +172,42 @@ class Admin extends MY_Controller
         $this->load->view('admin/admin_sidebar');
         $this->load->view('admin/all_articles');
         $this->load->view('footer');
+    }
+
+    public function comments($filter = 'all' $page = 0)
+    {
+        $config['base_url'] = base_url().'index.php?/admin/comment/'.$filter.'/';
+        $config['first_url'] = base_url().'index.php?/admin/comment/'.$filter.'/';
+
+        $data['filter'] = $filter;
+
+        if ($filter =='all') {
+            $filter = array('post_status !=' => 'trash');
+        } else {
+            $filter = array('post_status' => $filter);
+        }
+
+        $config['total_rows'] = $this->tifosi_model->entryCount('posts', $filter);
+        $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 1;
+
+        $this->pageination->initialize($config);
+
+        $data['title'] = 'Comments';
+        $data['comment'] = $this->tifosi_model->commentsQuery($page, $filter);
+        $data['links'] = $this->pagination->create_links();
+        $data['count'] = array(
+            'all' => $this->tifosi_model->entryCount('comments', array('status !=' => 'trash')),
+            'checked' => $this->tifosi_model->entryCount('comments', array('status' => 'checked')),
+            'uncheck' => $this->tifosi_model->entryCount('comments', array('status' => 'uncheck')),
+            'trash' => $this->tifosi_model->entryCount('comments', array('status' => 'trash')),
+        );
+
+        $this->load->view('header', $data);
+        $this->load->view('admin/all_articles_js');
+        $this->load->view('user_header');
+        $this->load->view('admin/admin_sidebar');
+        $this->load->view('admin/comments');
+        $this->load->view('fotter');
     }
 
     public function moveToTrash($id)
