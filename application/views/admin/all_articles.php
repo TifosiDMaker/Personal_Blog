@@ -25,16 +25,16 @@
                     <br />
                     <p class="hover_display"><small>
                         <?php if($filter == 'trash'): ?>
-                            <?php echo anchor('admin/outOfTrash/'.$row->id, '还原至公开'); ?>
+                            <?php echo anchor('admin/outOfTrash/posts/'.$row->id, '还原至公开'); ?>
                             <span style="color:gery"> | </span>
                             <span>
-                            <?php echo anchor('admin/deleteArticle/'.$row->id, '彻底删除', 'class="red_link"'); ?>
+                            <?php echo anchor('admin/deleteItem/posts/'.$row->id, '彻底删除', 'class="red_link"'); ?>
                             </span>
                         <?php else: ?>
                         <?php echo anchor('admin/writeArticle/'.$row->id, '编辑文章', 'class="edit_article"'); ?>
                         <span style="color:grey"> | </span>
                         <span>
-                        <?php echo anchor('admin/moveToTrash/'.$row->id, '移入垃圾桶', 'class="red_link"'); ?>
+                        <?php echo anchor('admin/moveToTrash/posts/'.$row->id, '移入垃圾桶', 'class="red_link"'); ?>
                         </span>
                         <?php endif; ?>
                     </small></p>

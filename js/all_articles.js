@@ -1,10 +1,10 @@
 $(document).ready(function() {
 	$('tr').on({
 		mouseenter: function() {
-			$(this).find('p').show();
+			$(this).find('.hover_display').show();
 		},
 		mouseleave: function() {
-			$(this).find('p').hide();
+			$(this).find('.hover_display').hide();
 		}
 	});
     $('.hide1, .except1').on({

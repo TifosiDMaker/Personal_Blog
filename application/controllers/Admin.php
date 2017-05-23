@@ -174,7 +174,7 @@ class Admin extends MY_Controller
         $this->load->view('footer');
     }
 
-    public function comments($filter = 'all' $page = 0)
+    public function comments($filter = 'all', $page = 1)
     {
         $config['base_url'] = base_url().'index.php?/admin/comment/'.$filter.'/';
         $config['first_url'] = base_url().'index.php?/admin/comment/'.$filter.'/';
@@ -182,18 +182,18 @@ class Admin extends MY_Controller
         $data['filter'] = $filter;
 
         if ($filter =='all') {
-            $filter = array('post_status !=' => 'trash');
+            $filter = array('status !=' => 'trash');
         } else {
-            $filter = array('post_status' => $filter);
+            $filter = array('status' => $filter);
         }
 
-        $config['total_rows'] = $this->tifosi_model->entryCount('posts', $filter);
+        $config['total_rows'] = $this->tifosi_model->entryCount('comments', $filter);
         $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 1;
 
-        $this->pageination->initialize($config);
+        $this->pagination->initialize($config);
 
         $data['title'] = 'Comments';
-        $data['comment'] = $this->tifosi_model->commentsQuery($page, $filter);
+        $data['comment'] = $this->tifosi_model->commentQuery(false, $page, $filter);
         $data['links'] = $this->pagination->create_links();
         $data['count'] = array(
             'all' => $this->tifosi_model->entryCount('comments', array('status !=' => 'trash')),
@@ -207,26 +207,33 @@ class Admin extends MY_Controller
         $this->load->view('user_header');
         $this->load->view('admin/admin_sidebar');
         $this->load->view('admin/comments');
-        $this->load->view('fotter');
+        $this->load->view('footer');
     }
 
-    public function moveToTrash($id)
+    public function accSet()
     {
-        $this->tifosi_model->moveToTrash($id);
+        $this->tifosi_model->changePassword();
 
         redirect($this->agent->referrer());
     }
 
-    public function outOfTrash($id)
+    public function moveToTrash($table, $id)
     {
-        $this->tifosi_model->outOfTrash($id);
+        $this->tifosi_model->moveToTrash($table, $id);
 
         redirect($this->agent->referrer());
     }
 
-    public function deleteArticle($id)
+    public function outOfTrash($table, $id)
     {
-        $this->tifosi_model->deleteArticle($id);
+        $this->tifosi_model->outOfTrash($table, $id);
+
+        redirect($this->agent->referrer());
+    }
+
+    public function deleteItem($table, $id)
+    {
+        $this->tifosi_model->deleteItem($id);
 
         redirect($this->agent->referrer());
     }

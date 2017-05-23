@@ -184,22 +184,23 @@ class Tifosi_Model extends CI_Model
     public function commentQuery($id, $page = 1, $filter = 0)
     {
         if ($id) {
-            $this->db->where('post_id', $id);
+            $this->db->where(array('post_id' => $id, 'status' => 'checked'));
             $this->db->order_by('id', 'DESC');
 
             $query = $this->db->get('comments');
 
             return $query->result();
         } else {
-            $this->db->select('*');
-            $this->db->from('comments');
-            $this->db->join('posts', 'comments.post_id = posts.id');
-            $this->db->where('status', $filter);
+            $this->db->select('p.id as pid, p.post_title, c.user, c.post_id, c.comment, c.time, c.id, c.status', false);
+            $this->db->from('posts as p');
+            $this->db->join('comments as c', 'c.post_id = p.id');
+            $this->db->where($filter);
             $this->db->order_by('time', 'DESC');
             $this->db->limit(10, ($page - 1) * 10);
 
             $query = $this->db->get();
             return $query->result();
+        }
     }
 
     public function entryCount($table, $where = 0)
@@ -234,24 +235,53 @@ class Tifosi_Model extends CI_Model
         $this->db->update('terms', $data);
     }
 
-    public function moveToTrash($id)
+    public function moveToTrash($table, $id)
     {
         $this->db->where('id', $id);
 
-        $this->db->update('posts', array('post_status' => 'trash'));
+        if ($table == 'posts') {
+            $col = 'post_status';
+        } elseif ($table == 'comments') {
+            $col = 'status';
+        }
+
+        $this->db->update($table, array($col => 'trash'));
     }
 
-    public function outOfTrash($id)
+    public function outOfTrash($table, $id)
     {
         $this->db->where('id', $id);
 
-        $this->db->update('posts', array('post_status' => 'public'));
+        if ($table == 'posts') {
+            $col = 'post_status';
+            $value = 'public';
+        } elseif ($table == 'comments') {
+            $col = 'status';
+            $value = 'checked';
+        }
+
+        $this->db->update($table, array($col => $value));
     }
 
-    public function deleteArticle($id)
+    public function deleteItem($table, $id)
     {
         $this->db->where('id', $id);
 
-        $this->db->delete('posts');
+        $this->db->delete($table);
+    }
+
+    public function changePassword()
+    {
+        $data['password'] = md5($this->input->post('newPassword');
+
+        $this->db->where('username', $_SESSION['username']);
+
+        $this->db->update('users', $data);
+    }
+
+    public function passwordQuery()
+    {
+        $query = $this->db->get_where('users', array('username' => $_SESSION['username']));
+        return $query->row();
     }
 }
