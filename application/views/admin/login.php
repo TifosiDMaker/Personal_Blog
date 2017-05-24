@@ -14,7 +14,7 @@
                 <button type="submit" class="btn btn-primary">登录</button>
                 <br />
                 <br />
-                <?php echo anchor('admin/signup', '注册'); ?>
+                <?php echo anchor('signup', '注册'); ?>
             </form>
         </div>
     </div>

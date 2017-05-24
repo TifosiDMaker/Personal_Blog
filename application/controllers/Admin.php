@@ -250,4 +250,32 @@ class Admin extends MY_Controller
 
         redirect($this->agent->referrer());
     }
+
+    public function check()
+    {
+        if($_POST)
+        {
+            $pw = md5($this->input->post('currentPassword'));
+
+            if($pw == $this->tifosi_model->passwordQuery()->password)
+            {
+                echo 'true';
+            } else {
+                echo 'false';
+            }
+        }
+    }
+
+    public function roleManagement()
+    {
+        $data['title'] = 'Role Management';
+        $data['users'] = $this->tifosi_model->userListQuery();
+
+        $this->load->view('header', $data);
+        $this->load->view('admin/all_articles_js');
+        $this->load->view('user_header');
+        $this->load->view('admin/admin_sidebar');
+        $this->load->view('admin/manage');
+        $this->load->view('footer');
+    }
 }

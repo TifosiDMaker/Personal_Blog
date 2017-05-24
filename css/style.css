@@ -96,3 +96,11 @@ a.red_link:active{
 .hide1, .hide2 {
     display: none;
 }
+
+.shortFiled {
+    width: 30%;
+}
+
+#changePassword .error {
+    color: rgb(139, 0, 0);
+}

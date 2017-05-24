@@ -107,6 +107,7 @@ class Index extends CI_Controller
         } else {
             if ($this->form_validation->run() == false) {
                 $this->load->view('header', $data);
+                $this->load->view('visitor_header');
                 $this->load->view('admin/login');
                 $this->load->view('footer');
             } else {
@@ -167,6 +168,7 @@ class Index extends CI_Controller
 
         if ($this->form_validation->run() == false) {
             $this->load->view('header', $data);
+            $this->load->view('visitor_header');
             $this->load->view('admin/signup');
             $this->load->view('footer');
         } else {

@@ -284,4 +284,11 @@ class Tifosi_Model extends CI_Model
         $query = $this->db->get_where('users', array('username' => $_SESSION['username']));
         return $query->row();
     }
+
+    public function userListQuery()
+    {
+        $query = $this->db->get('users');
+
+        return $query->result();
+    }
 }
