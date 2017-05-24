@@ -272,7 +272,7 @@ class Tifosi_Model extends CI_Model
 
     public function changePassword()
     {
-        $data['password'] = md5($this->input->post('newPassword');
+        $data['password'] = md5($this->input->post('newPassword'));
 
         $this->db->where('username', $_SESSION['username']);
 

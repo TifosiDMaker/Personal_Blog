@@ -23,4 +23,6 @@ $(document).ready(function() {
             $('.hide2').hide();
         }
     });
+    $('#changePassword').validate({
+        debug: true,
 });

@@ -13,7 +13,7 @@
                     <li><?php echo anchor('admin/comments/all', '评论'); ?></a></li>
                     <li class="sidebar-menu-item except2"><a href="#">用户</a></li>
                     <div class="hide2 nav sidebar-nav">
-                    <li class="sidebar-menu-item"><a href="#">账户管理</a></li>
+                    <li class="sidebar-menu-item"><?php echo anchor('admin/account', '账户管理'); ?></a></li>
                     <li class="sidebar-menu-item"><a href="#">用户管理</a></li>
                     </div>
                 </ul>

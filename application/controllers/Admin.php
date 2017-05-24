@@ -210,6 +210,19 @@ class Admin extends MY_Controller
         $this->load->view('footer');
     }
 
+    public function account()
+    {
+        $data['title'] = 'Account Setting';
+        $data['password'] = $this->tifosi_model->passwordQuery();
+
+        $this->load->view('header', $data);
+        $this->load->view('admin/all_articles_js');
+        $this->load->view('user_header');
+        $this->load->view('admin/admin_sidebar');
+        $this->load->view('admin/accSet');
+        $this->load->view('footer');
+    }
+
     public function accSet()
     {
         $this->tifosi_model->changePassword();
