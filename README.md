@@ -19,4 +19,6 @@ working...
 
 将小规模数据交换写成ajax
 
+将写文章的textarea换为插件
+
 前端美化

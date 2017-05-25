@@ -285,9 +285,14 @@ class Tifosi_Model extends CI_Model
         return $query->row();
     }
 
-    public function userListQuery()
+    public function roleQuery()
     {
-        $query = $this->db->get('users');
+        $this->db->select('*');
+        $this->db->from('users');
+
+        $this->db->join('roles', 'roles.role_id = users.role_id');
+
+        $query = $this->db->get();
 
         return $query->result();
     }
