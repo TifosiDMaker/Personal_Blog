@@ -18,22 +18,44 @@
     </table>
     <br />
     <br />
+    <div id="roleManage">
     <h3>
         角色管理
         <small>
             <span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span>
         </small>
     </h3>
+    </div>
     <br />
-    <div class="hidden-part form-group">
-        <label for="role">角色名称</label>
-        <select class="form-control" name="category">
-            <? foreach ($role as $row) {
-                echo '<option>'.$row->role_name.'</option>';
+    <div class="hidden-part form-group" id="needHide">
+        <label>角色名称  
+            <input list="roles" name="viewRoles" />
+        </label>
+        <datalist id="roles">
+            <? foreach ($roles as $row) {
+                echo '<option value="'.$row->role_name.'">';
             }
-                echo '<option>--新建--</option>';
             ?>
-        </select>
+        </datalist>
+        <br />
+        <br />
+        <table>
+            <tr>
+                <td>
+                    <p>写文章 </p>
+                    <label class="radio-inline">
+                        <input type="radio" name="writeArticle" value=1>是
+                        <input type="radio" name="writeArticle" value=0>否
+                    </label>
+                </td>
+                <td>
+                    <p>编辑所有文章</p>
+                    <label class="radio-inline">
+                        <input type="radio" name="writeAllArticle" value=1>是
+                        <input type="radio" name="writeAllArticle" value=0>否
+                    </label>
+                </td>
+            </tr>
     </div>
 </div>
                 

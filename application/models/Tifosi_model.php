@@ -296,4 +296,11 @@ class Tifosi_Model extends CI_Model
 
         return $query->result();
     }
+    
+    public function roleQueryM()
+    {
+        $query = $this->db->get('roles');
+
+        return $query->result();
+    }
 }

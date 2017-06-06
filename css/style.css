@@ -104,3 +104,7 @@ a.red_link:active{
 #changePassword .error {
     color: rgb(139, 0, 0);
 }
+
+#needHide {
+    display: none;
+}

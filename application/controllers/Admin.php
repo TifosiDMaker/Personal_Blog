@@ -270,6 +270,7 @@ class Admin extends MY_Controller
     {
         $data['title'] = 'Role Management';
         $data['users'] = $this->tifosi_model->roleQuery();
+        $data['roles'] = $this->tifosi_model->roleQueryM();
 
         $this->load->view('header', $data);
         $this->load->view('admin/all_articles_js');

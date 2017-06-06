@@ -27,6 +27,18 @@ $(document).ready(function() {
             $('.hide2').hide();
         }
     });
+    $('#roleManage').on({
+        click: function() {
+            $('#needHide').slideToggle("fast");
+            if ($('.glyphicon').hasClass('glyphicon-triangle-left')) {
+                $('.glyphicon').removeClass('glyphicon-triangle-left');
+                $('.glyphicon').addClass('glyphicon-triangle-bottom');
+            } else {
+                $('.glyphicon').removeClass('glyphicon-triangle-bottom');
+                $('.glyphicon').addClass('glyphicon-triangle-left');
+            }
+        }
+    });
     $('#changePassword').validate({
         debug: true,
 
