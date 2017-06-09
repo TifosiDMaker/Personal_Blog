@@ -41,21 +41,97 @@
         <br />
         <table>
             <tr>
-                <td>
-                    <p>写文章 </p>
+                <td class="nameCol">
+                    <b>写文章 </b>
+                </td>
+                <td class="valueCol">
                     <label class="radio-inline">
-                        <input type="radio" name="writeArticle" value=1>是
-                        <input type="radio" name="writeArticle" value=0>否
+                        <input type="radio" name="write_article" value=1>是
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="write_article" value=0>否
                     </label>
                 </td>
-                <td>
-                    <p>编辑所有文章</p>
+                <td class="nameCol">
+                    <b>编辑所有文章 </b>
+                </td>
+                <td class="valueCol">
                     <label class="radio-inline">
-                        <input type="radio" name="writeAllArticle" value=1>是
-                        <input type="radio" name="writeAllArticle" value=0>否
+                        <input type="radio" name="write_all_article" value=1>是
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="write_all_article" value=0>否
                     </label>
                 </td>
             </tr>
+            <tr>
+                <td class="nameCol">
+                    <b>评论 </b>
+                </td>
+                <td class="valueCol">
+                    <label class="radio-inline">
+                        <input type="radio" name="write_comment" value=1>是
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="write_comment" value=0>否
+                    </label>
+                </td>
+                <td class="nameCol">
+                    <b>审核评论 </b>
+                </td>
+                <td class="valueCol">
+                    <label class="radio-inline">
+                        <input type="radio" name="check_comment" value=1>是
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="check_comment" value=0>否
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td class="nameCol">
+                    <b>编辑标签 </b>
+                </td>
+                <td class="valueCol">
+                    <label class="radio-inline">
+                        <input type="radio" name="edit_tag" value=1>是
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="edit_tag" value=0>否
+                    </label>
+                </td>
+                <td class="nameCol">
+                    <b>角色权重 </b>
+                </td>
+                <td class="valueCol">
+                    <label>
+                    <select class="form-control">
+                        <option>0</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                    </select>
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td class="nameCol">
+                    <b>访问后台</b>
+                </td>
+                <td class="valueCol">
+                    <label class="radio-inline">
+                        <input type="radio" name="permission" value=1>是 
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="permission" value=0>否
+                    </label>
+                </td>
+                <td class="nameCol">
+                    <button type="submit" class="btn btn-primary">提交</button>
+                <td>
+            </tr>
+        </table>
     </div>
 </div>
                 

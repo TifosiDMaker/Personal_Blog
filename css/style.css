@@ -108,3 +108,15 @@ a.red_link:active{
 #needHide {
     display: none;
 }
+
+.nameCol {
+    width: 150px;
+}
+
+.valueCol {
+    width: 300px;
+}
+
+.nameCol, .valueCol {
+    height: 50px;
+}
