@@ -21,14 +21,20 @@ class Tifosi_Model extends CI_Model
 
     public function userQuery()
     {
-        $query = $this->db->get_where('users', array('username' => $this->input->post('username')));
+        $this->db->select('*');
+        $this->db->from('users');
+        $this->db->join('roles', 'roles.role_id = users.role_id');
+        $this->db->where('username', $this->input->post('username');
+        $this->db->get();
+        //$query = $this->db->get_where('users', array('username' => $this->input->post('username')));
         $row = $query->row();
 
         if (isset($row)) {
             if ($row->password == md5($this->input->post('password'))) {
                 return array(
                     'username' => $this->input->post('username'),
-                    'id' => $row->permission
+                    'permission' => $row->permission,
+                    'role_weight' => $row->row_weight,
                 );
             } else {
                 return false;
@@ -91,11 +97,7 @@ class Tifosi_Model extends CI_Model
         $query = $this->db->get_where('posts', array('post_title' => $this->input->post('articleTitle')));
         $row = $query->row();
 
-        //if (isset($row)) {
         $id = $row->id;
-        //} else {
-        //    $id = 1000;
-        //}
 
         $data = array(
             'article_id' => $id,

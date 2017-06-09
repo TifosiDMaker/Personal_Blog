@@ -76,4 +76,21 @@ $(document).ready(function() {
             },
         },
     });
+    $('#viewRoles').input(function() {
+        delay(function() {
+            $.ajax({
+                url: 'http://tifosili.top/Tifosi/index.php?/admin/roleAjax',
+                data: $('#viewRoles').val(),
+                success: function(response) {
+                    if (response) {
+                        $.each(response, function(name, value) {
+                            $('input[name='+name+']').val([value]);
+                    });
+                    } else {
+
+                    };
+                };
+            });
+        });
+    });
 });
